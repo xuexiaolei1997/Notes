@@ -119,13 +119,11 @@ class MyRegularizedGreedyForest(SKLearnEstimator):
         super().__init__(task, **config)
 
         if task in CLASSIFICATION:
-        from rgf.sklearn import RGFClassifier
-
-        self.estimator_class = RGFClassifier
+            from rgf.sklearn import RGFClassifier
+            self.estimator_class = RGFClassifier
         else:
-        from rgf.sklearn import RGFRegressor
-
-        self.estimator_class = RGFRegressor
+            from rgf.sklearn import RGFRegressor
+            self.estimator_class = RGFRegressor
 
     @classmethod
     def search_space(cls, data_size, task):
@@ -568,7 +566,6 @@ If you want to get a sense of how much time is needed to find the best model, yo
 You will see that the time to finish the first and cheapest trial is 2.6 seconds. The estimated necessary time budget is 2118 seconds, and the estimated sufficient time budget is 145194 seconds. Note that this is only an estimated range to help you decide your budget.
 
 When the time budget is set too low, it can happen that no estimator is trained at all within the budget. In this case, it is recommanded to use `max_iter` instead of `time_budget`. This ensures that you have enough time to train a model without worring about variance of the execution time for the code before starting a trainning.
-
 
 ## 2 Zero Shot AutoML
 
