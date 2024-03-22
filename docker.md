@@ -14,4 +14,4 @@
 
 ## 日志
 
-`docker log -f [--tail 100] $CONTAINER_ID `
+`docker log -f [--tail 100] $CONTAINER_ID`
