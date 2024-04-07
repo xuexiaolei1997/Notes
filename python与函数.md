@@ -20,7 +20,7 @@
 
 ## 通过类关键字参数设置变量
 
-```python-repl
+```python
 from typing import Dict, Any
 
 class C:
