@@ -33,6 +33,14 @@ deb http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe m
 
 ## 远程传输
 
-`scp [本地文件路径] [用户名]@[远程主机地址] : [目标路径]`
+本地传到远程： `scp [本地文件路径] [用户名]@[远程主机地址] : [目标路径]`
 
-传输文件夹，scp -r
+传输文件夹，scp -r 
+
+## 查看内存、CPU、硬盘
+
+`free -h`
+
+`lscpu`
+
+`df -h`
