@@ -14,15 +14,18 @@ Flowables：能够被流入文档的文本、图形和段落
 
 ## 初始化文档
 
-
 ```python
-from reportlab.platypus import SimpleDocTemplate
+from reportlab.platypus import SimpleDocTemplate, Paragraph
 
 pdf_name = "test.pdf"
 pdf = SimpleDocTemplate(pdf_name)
 
 content = []
-content.append()
+content.append(Paragraph("test text", style))
 
 pdf.build(content)
 ```
+
+![1715218969673](image/reportlab/1715218969673.png)
+
+在上述代码中，可以看，第一步需要声明文档模板，然后在模板上新增内容即可。
