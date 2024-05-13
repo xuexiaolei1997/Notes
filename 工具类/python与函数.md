@@ -10,7 +10,7 @@
 
 ## 下载包的源
 
-`https://pypi.tuna.tsinghua.edu.cn/simple/`
+https://pypi.tuna.tsinghua.edu.cn/simple/
 
 ## python新建虚拟环境
 
