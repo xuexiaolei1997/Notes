@@ -2,6 +2,16 @@
 
 ## 1.准备ubuntu服务器
 
+`apt update`
+
+`apt install gcc`
+
+`apt install `
+
+`apt install vim`
+
+`apt-get install libx264-dev`
+
 ## 2.安装x264依赖包
 
 ```text

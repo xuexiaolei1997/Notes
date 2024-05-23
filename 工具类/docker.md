@@ -15,3 +15,7 @@
 ## 日志
 
 `docker log -f [--tail 100] $CONTAINER_ID`
+
+## 复制
+
+`docker cp dir container_id:dir`
