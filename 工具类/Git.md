@@ -7,3 +7,7 @@
 ## 修改代理
 
 `git config --global http.proxy http://localhost:7890`
+
+## 取消代理
+
+`git config --global --unset http.proxy`
