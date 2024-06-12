@@ -180,11 +180,111 @@ class SelfAttention_v1(nn.Module):
         queries = torch.dot(x, self.W_query)
 
         attn_scores = torch.dot(queries, keys.T)
-        attn_weights = torch.softmax(attn_scores /keys.shape[-1] ** 0.5, dim=-1)
+        attn_weights = torch.softmax(attn_scores / keys.shape[-1] ** 0.5, dim=-1)
         context_vec = torch.dot(attn_weights, values)
         return context_vec
 
 
 ```
 
-1
+![1717397936262](image/从零开始构建LLM/1717397936262.png)
+
+```python
+import torch
+import torch.nn as nn
+
+class SelfAttention_v2(nn.Module):
+    def __init__(self, d_in, d_out, qkv_bias=False):
+        super().__init__()
+        self.d_out = d_out
+        self.W_query = nn.Linear(d_in, d_out, bias=qkv_bias)
+        self.W_key = nn.Linear(d_in, d_out, bias=qkv_bias)
+        self.W_value = nn.Linear(d_in, d_out, bias=qkv_bias)
+  
+    def forward(self, x):
+        keys = self.W_key(x)
+        queries = self.W_query(x)
+        values = self.W_value(x)
+
+        attn_scores = torch.dot(queries, keys.T)
+        attn_weights = torch.softmax(attn_scores / keys.shape[-1] ** 0.5, dim=-1)
+        context_vec = torch.dot(attn_weights, values)
+        return context_vec
+
+```
+
+### 3.5 用因果关系的注意力来隐藏未来的词语
+
+使用掩码机制，
+
+![1717401849186](image/从零开始构建LLM/1717401849186.png)
+
+##### 3.5.1 应用因果注意力掩码
+
+![1717401901352](image/从零开始构建LLM/1717401901352.png)
+
+![1717402483387](image/从零开始构建LLM/1717402483387.png)
+
+#### 3.5.2 使用dropout掩盖额外的注意力权重
+
+在transformer架构中，dropout通常用在两个地方：计算注意力分数之后或者应用注意力权重之前
+
+![1717558177482](image/从零开始构建LLM/1717558177482.png)
+
+需要注意的是，dropout时，会将原数值进行放大，这样能够保证注意力权重的平衡。
+
+#### 3.5.3 实现一个紧凑的因果注意类
+
+```python
+import torch
+import torch.nn as nn
+
+class CausalAttention(nn.Module):
+    def __init__(self, d_in, d_out, context_length, dropout, qkv_bias=False):
+        super().__init__()
+        self.d_out = d_out
+        self.W_query = nn.Linear(d_in, d_out, bias=qkv_bias)
+        self.W_key = nn.Linear(d_in, d_out, bias=qkv_bias)
+        self.W_value = nn.Linear(d_in, d_out, bias=qkv_bias)
+        self.dropout = nn.Dropout(dropout)
+        self.reigster_buffer('mask', torch.triu(torch.ones(context_length, context_length), diagonal=1))
+
+    def forward(self, x):
+        b, num_tokens, d_in = x.shape
+        keys = self.W_key(x)
+        queries = self.W_query(x)
+        values = self.W_value(x)
+
+        attn_scores = torch.dot(queries, keys.T)
+        attn_scores.masked_fill_(self.mask.bool()[:num_tokens, :num_tokens], -torch.inf)
+        attn_weights = torch.softmax(attn_scores / keys.shape[-1] ** 0.5, dim=-1)
+        attn_weights = self.dropout(attn_weights)
+        context_vec = torch.dot(attn_weights, values)
+        return context_vec
+```
+
+reigster_buffer在pytorch中并不是必要的，但是使用之后有如下好处：缓存会跟着模型自动移动到设备中。
+
+![1717566719143](image/从零开始构建LLM/1717566719143.png)
+
+### 3.6 将多头注意力扩展到多头注意力
+
+#### 3.6.1 叠加多个单头注意层
+
+![1717567513041](image/从零开始构建LLM/1717567513041.png)
+
+```python
+class MultiHeadAttentionWrapper(nn.Module):
+    def __init__(self, d_in, d_out, context_length, dropout, num_heads, qkv_bias=False):
+        super().__init__()
+        self.heads = nn.ModuleList(
+            [CausalAttention(d_in, d_out, context_length, dropout) for _ in range(num_heads)]
+        )
+  
+    def forward(self, x):
+        return torch.cat([head(x) for head in self.heads], dim=-1)
+```
+
+![1717661757839](image/从零开始构建LLM/1717661757839.png)
+
+#### 3.6.2 通过权重分割实现注意力机制
