@@ -310,7 +310,7 @@ class MultiHeadAttention(nn.Module):
             torch.triu(torch.ones(context_length, context_length),
                        diagonal=1)
         )
-    
+  
     def forward(self, x):
         b, num_tokens, d_in = x.shape
 
@@ -336,7 +336,7 @@ class MultiHeadAttention(nn.Module):
         attn_weights = self.dropout(attn_weights)
 
         context_vec = (attn_weights @ values).transpose(1, 2)
-        
+  
         context_vec = context_vec.contiguous().view(b, num_tokens, self.d_out)
         context_vec = self.out_proj(context_vec)
 
@@ -344,3 +344,102 @@ class MultiHeadAttention(nn.Module):
 ```
 
 ![1718186662363](image/从零开始构建LLM/1718186662363.png)
+
+## 4. 实现GPT并生成文本
+
+### 4.1 实现一个LLM结构
+
+![1718247386638](image/从零开始构建LLM/1718247386638.png)
+
+![1718258629553](image/从零开始构建LLM/1718258629553.png)
+
+```python
+class DummyGPTModel(nn.Module):
+    def __init__(self, cfg):
+        super().__init__()
+        self.tok_emb = nn.Embedding(cfg["vocab_size"], cfg["emb_dim"])
+        self.pos_emb = nn.Embedding(cfg["context_length"], cfg["emb_dim"])
+        self.drop_emb = nn.Dropout(cfg["drop_rate"])
+
+        self.trf_blocks = nn.Sequential(*[DummyTransformerBlock(cfg) for _ in range(cfg["n_layers"])])
+
+        self.final_norm = DummtLayerNorm(cfg["emb_dim"])
+        self.out_head = nn.Linear(cfg["emb_dim"], cfg["vocab_size"], bias=False)
+  
+    def forward(self, in_idx):
+        batch_size, seq_len = in_idx.shape
+        tok_embeds = self.tok_emb(in_idx)
+        pos_embeds = self.pos_emb(torch.range(seq_len, device=in_idx.device))
+        x = tok_embeds + pos_embeds
+        x = self.trf_blocks(x)
+        x = self.final_norm(x)
+        logits = self.out_head(x)
+        return logits
+
+class DummyTransformerBlock(nn.Module):
+    def __init__(self, cfg):
+        super().__init__()
+  
+    def forward(self, x):
+        return x
+
+class DummtLayerNorm(nn.Module):
+    def __init__(self, normalized_shape, eps=1e-5) -> None:
+        super().__init__()
+  
+    def forward(self, x):
+        return x
+```
+
+![1718262314570](image/从零开始构建LLM/1718262314570.png)
+
+### 4.2 layer归一化
+
+```python
+class LayerNorm(nn.Module):
+    def __init__(self, emb_dim) -> None:
+        super().__init__()
+        self.eps = 1e-5
+        self.scale = nn.Parameter(torch.ones(emb_dim))
+        self.shift = nn.Parameter(torch.zeros(emb_dim))
+  
+    def forward(self, x):
+        mean = x.mean(dim=-1, keepdim=True)
+        var = x.var(dim=-1, keepdim=True, unbiased=False)
+        norm_x = (x - mean) / torch.sqrt(var + self.eps)
+        return self.scale * norm_x + self.shift
+```
+
+layer归一化一般放在多头注意力前后和最终输出之前
+
+![1718265836573](image/从零开始构建LLM/1718265836573.png)
+
+### 4.3 使用GELU激活函数实现前馈网络
+
+在神经网络中，使用最广泛的是ReLU函数，但是在LLM，除了ReLU外，还有两种显著的激活函数：GELU (Gaussian Error Linear Unit) 和 SwiGLU (Sigmoid-Weighted Linear Unit)。GELU和SwiGLU分别是更复杂和光滑的包含高斯单元和s型门控线性单位的激活函数。他们可以表现的更好。
+
+$$
+\text{GELU}(x) \approx 0.5 \cdot x \cdot \left(1 + \tanh\left[\sqrt{\frac{2}{\pi}} \cdot \left(x + 0.044715 \cdot x^3\right)\right]\right)
+$$
+
+![1718272903120](image/从零开始构建LLM/1718272903120.png)
+
+在此基础上实现一个前馈网络，这个前馈网络至关重要，主要解决非线性问题，并且可以探索更丰富的空间。
+
+```python
+class FeedForward(nn.Module):
+    def __init__(self, cfg):
+        super().__init__()
+        self.layer = nn.Sequential(
+            nn.Linear(cfg["emb_dim"], 4 * cfg["emb_dim"]),
+            GELU(),
+            nn.Linear(4 * cfg["emb_dim"], cfg["emb_dim"])
+        )
+  
+    def forward(self, x):
+        return self.layer(x)
+```
+
+### 4.4 增加短连接
+
+![1718273582034](image/从零开始构建LLM/1718273582034.png)
