@@ -443,3 +443,66 @@ class FeedForward(nn.Module):
 ### 4.4 增加短连接
 
 ![1718273582034](image/从零开始构建LLM/1718273582034.png)
+
+```python
+class ExampleDeepNeuralNetwork(nn.Module):
+    def __init__(self, layer_sizes, use_shortcut) -> None:
+        super().__init__()
+        self.use_shortcut = use_shortcut
+        self.layers = nn.ModuleList([
+            nn.Sequential(nn.Linear(layer_sizes[0], layer_sizes[1]), GELU()),
+            nn.Sequential(nn.Linear(layer_sizes[1], layer_sizes[2]), GELU()),
+            nn.Sequential(nn.Linear(layer_sizes[2], layer_sizes[3]), GELU()),
+            nn.Sequential(nn.Linear(layer_sizes[3], layer_sizes[4]), GELU()),
+            nn.Sequential(nn.Linear(layer_sizes[4], layer_sizes[5]), GELU()),
+        ])
+    
+    def forward(self, x):
+        for layer in self.layers:
+            layer_output = layer(x)
+            if self.use_shortcut and x.shape == layer_output.shape:
+                x = x + layer_output
+            else:
+                x = layer_output
+        return x
+```
+
+### 4.5 连接transformer中的注意力和线性层
+
+**transformer block的说明**
+![1718347509428](image/从零开始构建LLM/1718347509428.png)
+
+```python
+class TransformerBlock(nn.Module):
+    def __init__(self, cfg) -> None:
+        super().__init__()
+        self.att = MultiHeadAttention(d_in=cfg["emb_dim"], 
+                                      d_out=cfg["emb_dim"],
+                                      context_length=cfg["context_length"], 
+                                      num_heads=cfg["n_heads"],
+                                      dropout=cfg["drop_rate"],
+                                      qkv_bias=cfg["qkv_bias"])
+        self.ff = FeedForward(cfg)
+        self.norm1 = LayerNorm(cfg["emb_dim"])
+        self.norm2 = LayerNorm(cfg["emb_dim"])
+        self.drop_resid = nn.Dropout(cfg["drop_rate"])
+    
+    def forward(self, x):
+        shortcut = x
+        x = self.norm1(x)
+        x = self.att(x)
+        x = self.drop_resid(x)
+        x = x + shortcut
+
+        shortcut = x
+
+        x = self.norm2(x)
+        x = self.ff(x)
+        x = self.drop_resid(x)
+        x = x + shortcut
+        return x
+```
+
+### 4.6 编码GPT模型
+
+![1718352064601](image/从零开始构建LLM/1718352064601.png)
