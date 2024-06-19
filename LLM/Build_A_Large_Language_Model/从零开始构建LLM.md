@@ -199,13 +199,13 @@ class SelfAttention_v1(nn.Module):
         self.W_value = nn.Parameter(torch.rand(d_in, d_out))
   
     def forward(self, x):
-        keys = torch.dot(x, self.W_key)
-        values = torch.dot(x, self.W_value)
-        queries = torch.dot(x, self.W_query)
+        keys = torch.matmul(x, self.W_key)
+        values = torch.matmul(x, self.W_value)
+        queries = torch.matmul(x, self.W_query)
 
-        attn_scores = torch.dot(queries, keys.T)
+        attn_scores = torch.matmul(queries, keys.T)
         attn_weights = torch.softmax(attn_scores / keys.shape[-1] ** 0.5, dim=-1)
-        context_vec = torch.dot(attn_weights, values)
+        context_vec = torch.matmul(attn_weights, values)
         return context_vec
 
 
@@ -230,9 +230,9 @@ class SelfAttention_v2(nn.Module):
         queries = self.W_query(x)
         values = self.W_value(x)
 
-        attn_scores = torch.dot(queries, keys.T)
+        attn_scores = torch.matmul(queries, keys.T)
         attn_weights = torch.softmax(attn_scores / keys.shape[-1] ** 0.5, dim=-1)
-        context_vec = torch.dot(attn_weights, values)
+        context_vec = torch.matmul(attn_weights, values)
         return context_vec
 
 ```
@@ -263,62 +263,10 @@ class SelfAttention_v2(nn.Module):
 import torch
 import torch.nn as nn
 
-class CausalAttention(nn.Module):
-    def __init__(self, d_in, d_out, context_length, dropout, qkv_bias=False):
-        super().__init__()
-        self.d_out = d_out
-        self.W_query = nn.Linear(d_in, d_out, bias=qkv_bias)
-        self.W_key = nn.Linear(d_in, d_out, bias=qkv_bias)
-        self.W_value = nn.Linear(d_in, d_out, bias=qkv_bias)
-        self.dropout = nn.Dropout(dropout)
-        self.reigster_buffer('mask', torch.triu(torch.ones(context_length, context_length), diagonal=1))
-
-    def forward(self, x):
-        b, num_tokens, d_in = x.shape
-        keys = self.W_key(x)
-        queries = self.W_query(x)
-        values = self.W_value(x)
-
-        attn_scores = torch.dot(queries, keys.T)
-        attn_scores.masked_fill_(self.mask.bool()[:num_tokens, :num_tokens], -torch.inf)
-        attn_weights = torch.softmax(attn_scores / keys.shape[-1] ** 0.5, dim=-1)
-        attn_weights = self.dropout(attn_weights)
-        context_vec = torch.dot(attn_weights, values)
-        return context_vec
-```
-
-reigster_buffer在pytorch中并不是必要的，但是使用之后有如下好处：缓存会跟着模型自动移动到设备中。
-
-![1717566719143](image/从零开始构建LLM/1717566719143.png)
-
-### 3.6 将多头注意力扩展到多头注意力
-
-#### 3.6.1 叠加多个单头注意层
-
-![1717567513041](image/从零开始构建LLM/1717567513041.png)
-
-```python
-class MultiHeadAttentionWrapper(nn.Module):
-    def __init__(self, d_in, d_out, context_length, dropout, num_heads, qkv_bias=False):
-        super().__init__()
-        self.heads = nn.ModuleList(
-            [CausalAttention(d_in, d_out, context_length, dropout) for _ in range(num_heads)]
-        )
-  
-    def forward(self, x):
-        return torch.cat([head(x) for head in self.heads], dim=-1)
-```
-
-![1717661757839](image/从零开始构建LLM/1717661757839.png)
-
-#### 3.6.2 通过权重分割实现注意力机制
-
-```python
 class MultiHeadAttention(nn.Module):
-    def __init__(self, d_in, d_out, context_length, dropout, num_heads, qkv_bias=False):
+    def __init__(self, d_in, d_out, context_length, dropout, num_heads, qkv_bias=False) -> None:
         super().__init__()
-        assert (d_out % num_heads == 0), \
-            "d_out must be divisible by num_heads"
+        assert (d_out % num_heads == 0), "d_out must be divisible by num_heads"
 
         self.d_out = d_out
         self.num_heads = num_heads
@@ -334,23 +282,23 @@ class MultiHeadAttention(nn.Module):
             torch.triu(torch.ones(context_length, context_length),
                        diagonal=1)
         )
-  
+
     def forward(self, x):
         b, num_tokens, d_in = x.shape
 
-        keys = self.W_key(x)
+        keys = self.W_key(x) # Shape: (b, num_tokens, d_out)
         queries = self.W_query(x)
         values = self.W_value(x)
 
         keys = keys.view(b, num_tokens, self.num_heads, self.head_dim)
-        values = values.view(b, num_tokens, self.num_heads, self.head_dim)
         queries = queries.view(b, num_tokens, self.num_heads, self.head_dim)
+        values = values.view(b, num_tokens, self.num_heads, self.head_dim)
 
         keys = keys.transpose(1, 2)
         queries = queries.transpose(1, 2)
         values = values.transpose(1, 2)
 
-        attn_scores = queries @ keys.transpose(2, 3)
+        attn_scores = torch.matmul(queries, keys.transpose(2, 3))
 
         mask_bool = self.mask.bool()[:num_tokens, :num_tokens]
 
@@ -358,9 +306,9 @@ class MultiHeadAttention(nn.Module):
 
         attn_weights = torch.softmax(attn_scores / keys.shape[-1]**0.5, dim=-1)
         attn_weights = self.dropout(attn_weights)
+        
+        context_vec = torch.matmul(attn_weights, values).transpose(1, 2)
 
-        context_vec = (attn_weights @ values).transpose(1, 2)
-  
         context_vec = context_vec.contiguous().view(b, num_tokens, self.d_out)
         context_vec = self.out_proj(context_vec)
 
@@ -387,18 +335,19 @@ class DummyGPTModel(nn.Module):
 
         self.trf_blocks = nn.Sequential(*[DummyTransformerBlock(cfg) for _ in range(cfg["n_layers"])])
 
-        self.final_norm = DummtLayerNorm(cfg["emb_dim"])
+        self.final_norm = DummyLayerNorm(cfg["emb_dim"])
         self.out_head = nn.Linear(cfg["emb_dim"], cfg["vocab_size"], bias=False)
   
     def forward(self, in_idx):
         batch_size, seq_len = in_idx.shape
         tok_embeds = self.tok_emb(in_idx)
-        pos_embeds = self.pos_emb(torch.range(seq_len, device=in_idx.device))
+        pos_embeds = self.pos_emb(torch.arange(seq_len, device=in_idx.device))
         x = tok_embeds + pos_embeds
         x = self.trf_blocks(x)
         x = self.final_norm(x)
         logits = self.out_head(x)
         return logits
+
 
 class DummyTransformerBlock(nn.Module):
     def __init__(self, cfg):
@@ -407,7 +356,8 @@ class DummyTransformerBlock(nn.Module):
     def forward(self, x):
         return x
 
-class DummtLayerNorm(nn.Module):
+
+class DummyLayerNorm(nn.Module):
     def __init__(self, normalized_shape, eps=1e-5) -> None:
         super().__init__()
   
