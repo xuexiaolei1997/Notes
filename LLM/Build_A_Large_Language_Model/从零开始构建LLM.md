@@ -306,7 +306,7 @@ class MultiHeadAttention(nn.Module):
 
         attn_weights = torch.softmax(attn_scores / keys.shape[-1]**0.5, dim=-1)
         attn_weights = self.dropout(attn_weights)
-        
+  
         context_vec = torch.matmul(attn_weights, values).transpose(1, 2)
 
         context_vec = context_vec.contiguous().view(b, num_tokens, self.d_out)
@@ -516,3 +516,315 @@ class GPTModel(nn.Module):
 ![1718358887750](image/从零开始构建LLM/1718358887750.png)
 
 ![1718358992690](image/从零开始构建LLM/1718358992690.png)
+
+## 5. 在未标记的数据上进行训练
+
+本章主要内容如下
+
+![1718849971728](image/从零开始构建LLM/1718849971728.png)
+
+5.1 评估生成文本模型
+
+![1718851702204](image/从零开始构建LLM/1718851702204.png)
+
+### 5.1.1 使用GPT模型生成文本
+
+```python
+GPT_CONFIG_124M = {
+    "vocab_size": 50257,
+    "context_length": 256, #A
+    "emb_dim": 768,
+    "n_heads": 12,
+    "n_layers": 12,
+    "drop_rate": 0.1, #B
+    "qkv_bias": False
+}
+model = GPTModel(GPT_CONFIG_124M)
+model.eval()
+```
+
+与之前的进行对比，context_length减少到256（之前为1024），这一改变减少了计算需求，使得能够在桌面版计算机上运行。
+在之后的训练中，将其更新回1024，以便于加载预训练模型。
+
+![1718853446792](image/从零开始构建LLM/1718853446792.png)
+
+```python
+def text_to_token_ids(text, tokenizer):
+    encoded = tokenizer.encode(text, allowed_special={'<|endoftext|>'})
+    encoded_tensor = torch.tensor(encoded).unsqueeze(0)
+    return encoded_tensor
+
+def token_ids_to_text(token_ids, tokenizer):
+    decoded = tokenizer.decode(token_ids.squeeze(0).tolist())
+    return decoded
+
+start_context = "Every effort moves you"
+tokenizer = tiktoken.get_encoding("gpt2")
+
+encoded = text_to_token_ids(start_context, tokenizer)
+print(">> encoded:", encoded)
+
+token_ids = generate_text_simple(model=model, idx=encoded, max_new_tokens=10, context_size=GPT_CONFIG_124M['context_length'])
+
+decoded_text = token_ids_to_text(token_ids, tokenizer)
+print(">> decoded_text:", decoded_text)
+```
+
+### 5.1.2 计算文本生成的损失
+
+![1718854323771](image/从零开始构建LLM/1718854323771.png)
+
+```python
+inputs = torch.tensor([[16833, 3626, 6100],   # ["every effort moves",
+                       [40,    1107, 588]])   #  "I really like"]
+
+targets = torch.tensor([[3626, 6100, 345  ],  # [" effort moves you",
+                        [1107,  588, 11311]]) #  " really like chocolate"]
+
+with torch.no_grad():
+    logits = model(inputs)
+
+probas = torch.softmax(logits, dim=-1)
+print(">> probas: ", probas)
+
+token_ids = torch.argmax(probas, dim=-1, keepdim=True)
+print(">> token_ids: ", token_ids)
+
+print(">> target batch: ", token_ids_to_text(targets[0], tokenizer))
+print(">> predicted batch: ", token_ids_to_text(token_ids[0].flatten(), tokenizer))
+```
+
+由于还未被训练，因此产生的为随机文本。
+训练过程是不断减小目标与预测值之间的“距离”。
+
+![1718868480909](image/从零开始构建LLM/1718868480909.png)
+
+```python
+# 2-3
+text_idx = 0
+target_probas_1 = probas[text_idx, [0, 1, 2], targets[text_idx]]
+print(">> Text 1:", target_probas_1)
+
+text_idx = 1
+target_probas_2 = probas[text_idx, [0, 1, 2], targets[text_idx]]
+print(">> Text 2:", target_probas_2)
+
+# 4
+log_probas = torch.log(torch.cat((target_probas_1, target_probas_2)))
+print(">> log probas: ", log_probas)
+
+# 5
+avg_log_probas = torch.mean(log_probas)
+print(">> avg log probas: ", avg_log_probas)
+
+# 6
+neg_avg_log_probas = -avg_log_probas
+print(">> neg avg log probas: ", neg_avg_log_probas)
+```
+
+交叉熵 Cross Entropy Loss， 是用来衡量两个概率分布之间的差异
+在进行交叉熵之前，需要检查向量维度
+
+```python
+# Logits have shape (batch_size, num_tokens, vocab_size)
+print(">> Logits shape:", logits.shape)
+
+# Targets have shape (batch_size, num_tokens)
+print(">> Targets shape:", targets.shape)
+
+logits_flat = logits.flatten(0, 1)
+targets_flat = targets.flatten()
+
+print(">> Flattened logits:", logits_flat.shape)
+print(">> Flattened targets:", targets_flat.shape)
+
+logits_flat = logits.flatten(0, 1)
+targets_flat = targets.flatten()
+
+print(">> Flattened logits:", logits_flat.shape)
+print(">> Flattened targets:", targets_flat.shape)
+
+loss = nn.functional.cross_entropy(logits_flat, targets_flat)
+print(">> Loss: ", loss)
+```
+
+> 困惑度</br>
+
+困惑度也是评价语言模型好坏的指标。它可以提供一种更可解释的方法来理解模型在预测序列中的下一个标记时的不确定性。</br>
+困惑度衡量了模型预测的概率分布与数据集中单词的实际分布的匹配程度。与损失相似，较低的困惑度表明模型的预测更接近实际分布。</br>
+困惑度的可解释性在于它表示模型在每一步中都不确定的有效词汇表大小。</br>
+
+```python
+perplexity = torch.exp(loss)
+print(perplexity)
+```
+
+### 5.1.3 计算训练和验证损失
+
+![1718868663879](image/从零开始构建LLM/1718868663879.png)
+
+```python
+text_data = raw_text
+total_characters = len(text_data)
+total_tokens = len(tokenizer.encode(text_data))
+
+print(">> Characters:", total_characters)
+print(">> Tokens:", total_tokens)
+
+train_ratio = 0.9
+split_idx = int(len(text_data) * train_ratio)
+train_data = text_data[:split_idx]
+val_data = text_data[split_idx:]
+
+train_loader = create_dataloader_v1(train_data, 
+                                    batch_size=2, 
+                                    max_length=GPT_CONFIG_124M['context_length'], 
+                                    stride=GPT_CONFIG_124M['context_length'], 
+                                    drop_last=True, 
+                                    shuffle=True)
+val_loader = create_dataloader_v1(val_data, 
+                                  batch_size=2, 
+                                  max_length=GPT_CONFIG_124M['context_length'], 
+                                  stride=GPT_CONFIG_124M['context_length'], 
+                                  drop_last=False, 
+                                  shuffle=False)
+
+print("Train loader:")
+for x, y in train_loader:
+    print(x.shape, y.shape)
+
+print("\nValidation loader:")
+for x, y in val_loader:
+    print(x.shape, y.shape)
+
+
+def calc_loss_batch(input_batch, target_batch, model, device):
+    input_batch, target_batch = input_batch.to(device), target_batch.to(device)
+    logits = model(input_batch)
+    loss = nn.functional.cross_entropy(logits.flatten(0, 1), target_batch.flatten())
+    return loss
+
+
+def calc_loss_loader(data_loader, model, device, num_batches=None):
+    total_loss = 0
+    if num_batches is None:
+        num_batches = len(data_loader)
+    else:
+        num_batches = min(len(data_loader), num_batches)
+    for i, (input_batch, target_batch) in enumerate(data_loader):
+        if i >= num_batches:
+            break
+        loss = calc_loss_batch(input_batch, target_batch, model, device)
+        total_loss += loss.item()
+    return total_loss / num_batches
+
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.to(device)
+train_loss = calc_loss_loader(train_loader, model, device)
+print(f">> Train loss: {train_loss}")
+
+val_loss = calc_loss_loader(val_loader, model, device)
+print(f">> Val loss: {val_loss}")
+```
+
+### 5.2 训练一个LLM
+
+![1718875144870](image/从零开始构建LLM/1718875144870.png)
+
+```python
+def evaluete_model(model, train_loader, val_loader, device, eval_iter):
+    model.eval()
+    with torch.no_grad():
+        train_loss = calc_loss_loader(train_loader, model, device, eval_iter)
+        val_loss = calc_loss_loader(val_loader, model, device, eval_iter)
+    model.train()
+    return train_loss, val_loss
+
+
+def generate_and_print_sample(model, tokenizer, device, start_context):
+    model.eval()
+    context_size = model.pos_emb.weight.shape[0]
+    excoded = text_to_token_ids(start_context, tokenizer).to(device)
+    with torch.no_grad():
+        token_ids = generate_text_simple(model, excoded, 50 , context_size)
+        decoded_text = token_ids_to_text(token_ids, tokenizer)
+        print(f">> {start_context} --> {decoded_text}")
+    model.train()
+
+
+def train_model_simple(model, train_loader, val_loader, optimizer, device, num_epochs,
+                       eval_freq, eval_iter, start_context, tokenizer):
+    train_losses, val_losses, track_token_seen = [], [], []
+    token_seen, global_step = 0, -1
+
+    for epoch in range(num_epochs):
+        model.train()
+        for input_batch, target_batch in train_loader:
+            optimizer.zero_grad()
+            loss = calc_loss_batch(input_batch, target_batch, model, device)
+            loss.backward()
+            optimizer.step()
+            token_seen += input_batch.numel()
+            global_step += 1
+            if global_step % eval_freq == 0:
+                train_loss, val_loss = evaluete_model(model, train_loader, val_loader, device, eval_iter)
+                train_losses.append(train_loss)
+                val_losses.append(val_loss)
+                track_token_seen.append(token_seen)
+                print(f">> Epoch {epoch + 1}, step {global_step: 06d}: train loss {train_loss:.4f}, val loss {val_loss:.4f}")
+    
+        generate_and_print_sample(model, tokenizer, device, start_context)
+    return train_losses, val_losses, track_token_seen
+```
+
+```python
+model = GPTModel(GPT_CONFIG_124M)
+model.to(device)
+optimizer = torch.optim.Adam(model.parameters(), lr=4e-4, weight_decay=0.1)
+
+num_epochs = 10
+train_losses, val_losses, track_token_seen = train_model_simple(model, train_loader, val_loader, optimizer, device,
+                                                               num_epochs, 5, 5, "Every effort moves you", tokenizer)
+
+
+def plot_losses(epochs_seen, tokens_seen, train_losses, val_losses):
+    fig, ax = plt.subplots(figsize=(10, 5))
+
+    ax.plot(epochs_seen, train_losses, label="train")
+    ax.plot(epochs_seen, val_losses, liniestyle='-.', label="val")
+    ax.set_xlabel("Epochs")
+    ax.set_ylabel("Loss")
+    ax.legend()
+    ax.set_title("Losses vs. Epochs")
+
+    ax1 = ax.twinx()
+    ax1.plot(tokens_seen, train_losses, alpha=0)
+    ax1.set_xlabel("Tokens Seen")
+    ax1.legend()
+    ax1.set_title("Losses vs. Token Count")
+
+    fig.tight_layout()
+    plt.show()
+
+epoch_tensor = torch.linspace(0, num_epochs, len(train_losses))
+plot_losses(epoch_tensor, track_token_seen, train_losses, val_losses)
+```
+
+## 5.3 控制随机性的解码策略
+
+主要介绍两个函数：`temperature scaling` 和 `top-k sampling`
+
+首先需要将模型转到cpu上，因为较小的模型在推理时不需要gpu
+
+```python
+model.to('cpu')
+model.eval()
+
+tokenizer = tiktoken.get_encoding("gpt2")
+token_ids = generate_text_simple(model=model,
+                                 idx=text_to_token_ids("Every effort moves you", tokenizer),
+                                 max_new_tokens=25,
+                                 context_size=GPT_CONFIG_124M["context_length"])
+print(">> generated text: ", token_ids_to_text(token_ids, tokenizer))
+```
