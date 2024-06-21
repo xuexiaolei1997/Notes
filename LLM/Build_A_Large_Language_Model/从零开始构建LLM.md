@@ -648,11 +648,11 @@ loss = nn.functional.cross_entropy(logits_flat, targets_flat)
 print(">> Loss: ", loss)
 ```
 
-> 困惑度</br>
+> 困惑度 `</br>`
 
-困惑度也是评价语言模型好坏的指标。它可以提供一种更可解释的方法来理解模型在预测序列中的下一个标记时的不确定性。</br>
-困惑度衡量了模型预测的概率分布与数据集中单词的实际分布的匹配程度。与损失相似，较低的困惑度表明模型的预测更接近实际分布。</br>
-困惑度的可解释性在于它表示模型在每一步中都不确定的有效词汇表大小。</br>
+困惑度也是评价语言模型好坏的指标。它可以提供一种更可解释的方法来理解模型在预测序列中的下一个标记时的不确定性。`</br>`
+困惑度衡量了模型预测的概率分布与数据集中单词的实际分布的匹配程度。与损失相似，较低的困惑度表明模型的预测更接近实际分布。`</br>`
+困惑度的可解释性在于它表示模型在每一步中都不确定的有效词汇表大小。`</br>`
 
 ```python
 perplexity = torch.exp(loss)
@@ -773,7 +773,7 @@ def train_model_simple(model, train_loader, val_loader, optimizer, device, num_e
                 val_losses.append(val_loss)
                 track_token_seen.append(token_seen)
                 print(f">> Epoch {epoch + 1}, step {global_step: 06d}: train loss {train_loss:.4f}, val loss {val_loss:.4f}")
-    
+  
         generate_and_print_sample(model, tokenizer, device, start_context)
     return train_losses, val_losses, track_token_seen
 ```
@@ -811,7 +811,7 @@ epoch_tensor = torch.linspace(0, num_epochs, len(train_losses))
 plot_losses(epoch_tensor, track_token_seen, train_losses, val_losses)
 ```
 
-## 5.3 控制随机性的解码策略
+### 5.3 控制随机性的解码策略
 
 主要介绍两个函数：`temperature scaling` 和 `top-k sampling`
 
@@ -828,3 +828,182 @@ token_ids = generate_text_simple(model=model,
                                  context_size=GPT_CONFIG_124M["context_length"])
 print(">> generated text: ", token_ids_to_text(token_ids, tokenizer))
 ```
+
+#### 5.3.1 Temperature scaling
+
+一种添加概率选择过程到向下一代标记生成任务的技术。`</br>`
+在前面的章节中，`generate_text_simple` 函数使用 `torch.argmax` 取最大概率，这一行为被称为贪婪解码 greedy decode。`</br>`
+为了使输出更加多样化，我们使用 **`从概率分布进行采样`** 来替换掉 `argmax`
+
+```python
+vocab = { 
+    "closer": 0,
+    "every": 1, 
+    "effort": 2, 
+    "forward": 3,
+    "inches": 4,
+    "moves": 5, 
+    "pizza": 6,
+    "toward": 7,
+    "you": 8,
+} 
+inverse_vocab = {v: k for k, v in vocab.items()}
+
+next_token_logits = torch.tensor(
+    [4.51, 0.89, -1.90, 6.75, 1.63, -1.62, -1.89, 6.28, 1.79]
+)
+
+probas = torch.softmax(next_token_logits, dim=0)
+next_token_id = torch.argmax(probas).item()
+
+print(">> inverse vocab (argmax): ", inverse_vocab[next_token_id])
+
+next_token_id = torch.multinomial(probas, num_samples=1).item()
+print(">> inverse vocab (probability distribution): ", inverse_vocab[next_token_id])
+```
+
+打印出来的结果都是forward。`multinomial`是根据概率分数的比例来对下一个标记进行采样。因此在这里，forward仍然是最大的概率分数。在执行多次后我们统计一下。
+
+```python
+def print_sampled_tokens(probas):
+    sample = [torch.multinomial(probas, num_samples=1).item() for _ in range(100)]
+    sampled_ids = torch.bincount(torch.tensor(sample))
+    for i, freq in enumerate(sampled_ids):
+        print(f">> sampled {freq} times: {inverse_vocab[i]}")
+
+print_sampled_tokens(probas)
+```
+
+可以看出，与argmax不同，大部分情况下，会选择 `forward`但是也有其他的可能。`</br>`
+我们可以通过一个叫做 `temperature scaling`的概念来控制分布和选择过程。`temperature scaling`只是一个大于0的树。
+
+```python
+def softmax_with_temperature(logits, temperature):
+    scaled_logits = logits / temperature
+    return torch.softmax(scaled_logits, dim=0)
+```
+
+temperature大于1会得到更加均匀的分布，小于1则会得到更尖锐的分布
+
+```python
+temperatures = [1, 0.1, 5]
+scaled_probas = [softmax_with_temperature(next_token_logits, t) for t in temperatures]
+
+x = torch.arange(len(vocab))
+bar_width = 0.15
+
+fig, ax = plt.subplots()
+for i, T in enumerate(temperatures):
+    ax.bar(x + i * bar_width, scaled_probas[i], width=bar_width, label=f"T={T}")
+
+ax.set_ylabel("Probability")
+ax.set_xticks(x)
+ax.set_xticklabels(list(vocab.keys()), rotation=90)
+ax.legend()
+plt.tight_layout()
+plt.show()
+```
+
+![1718954172762](image/从零开始构建LLM/1718954172762.png)
+
+#### 5.3.2 Top-k sampling
+
+当结合概率采样和温度尺度时，可以提高文本生成结果。
+
+在top-k抽样中，我们可以将采样的标记限制在最可能的top-k标记中，并通过屏蔽其概率分数，从选择过程中排除所有其他标记，如下图所示。
+
+![1718954311719](image/从零开始构建LLM/1718954311719.png)
+
+```python
+# >> top k and position
+top_k = 3
+top_logits, top_pos = torch.topk(next_token_logits, top_k)
+
+print(">> top logits: ", top_logits)
+print(">> top positions: ", top_pos)
+
+# >> mask logits
+new_logits = torch.where(condition=next_token_logits < top_logits[-1],
+                         input=torch.tensor(float('-inf')),
+                         other=next_token_logits)
+print(">> new logits: ", new_logits)
+
+# >> topk probas
+topk_probas = torch.softmax(new_logits, dim=0)
+print(">> topk probas: ", topk_probas)
+```
+
+#### 5.3.3 修改文本生成函数
+
+```python
+def generate(model, idx, max_new_tokens, context_size, temperature=0.0, top_k=None, eos_id=None):
+    for _ in range(max_new_tokens):
+        # >> context
+        idx_cond = idx if idx.size(0) <= context_size else idx[-context_size:]
+
+        # >> logits
+        with torch.no_grad():
+            logits = model(idx_cond)
+        logits = logits[:, -1, :]  # last
+
+        # >> topk
+        if top_k is not None:
+            top_logits, top_pos = torch.topk(logits, top_k)
+            min_val = top_logits[:, -1]  # min value
+            # mask logits
+            logits = torch.where(condition=logits < min_val, input=torch.tensor(float('-inf')), other=logits)
+        
+        # >> temperature
+        if temperature > 0.0:
+            logits = logits / temperature
+            probs = torch.softmax(logits, dim=-1)
+            idx_next = torch.multinomial(probs, num_samples=1)
+        else:
+            idx_next = torch.argmax(logits, dim=-1, keepdim=True)
+        idx = torch.cat((idx, idx_next), dim=1)
+    return idx
+
+token_ids = generate(model=model, idx=text_to_token_ids("Every effort moves you", tokenizer), 
+                     max_new_tokens=15, 
+                     context_size=GPT_CONFIG_124M["context_length"],
+                     top_k=25,
+                     temperature=1.4)
+print(">> generated text: ", token_ids_to_text(token_ids, tokenizer))
+```
+
+### 5.4 在PyTorch中加载和保存模型权重
+
+```python
+## save model
+torch.save(model.state_dict(), "model.pth")
+
+# load model
+model = GPTModel(GPT_CONFIG_124M)
+model.load_state_dict(torch.load("model.pth"))
+model.eval()
+```
+
+> model.eval()作用：**禁用dropout**
+
+AdamW使用历史数据来动态调整每个模型参数的学习速率。如果没有它，优化器就会重置，模型可能会学习次优，甚至不能正确收敛，这意味着它将失去生成连贯文本的能力。使用torch.save，我们可以保存模型和优化器的state_dict的内容如下：
+
+```python
+# save model and optimizer
+torch.save({
+    "model_states_dict": model.state_dict(),
+    "optimizer_state_dict": optimizer.state_dict(),
+}, "model_and_optimizer.pth")
+
+# load model and optimizer
+checkpoint = torch.load("model_and_optimizer.pth")
+model = GPTModel(GPT_CONFIG_124M)
+model.load_state_dict(checkpoint["model_states_dict"])
+optimizer = torch.optim.AdamW(model.parameters(), lr=5e-4, weight_decay=0.1)
+optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+model.train()
+```
+
+### 5.5 从OpenAI中加载预训练模型
+
+需要先安装以下两个库：
+`pip install tensorflow tqdm`
