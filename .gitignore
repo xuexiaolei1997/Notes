@@ -1,1 +1,5 @@
 .vscode/
+*.pt
+*.pth
+*.h5
+models/

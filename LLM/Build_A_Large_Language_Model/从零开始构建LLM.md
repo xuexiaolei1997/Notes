@@ -952,7 +952,7 @@ def generate(model, idx, max_new_tokens, context_size, temperature=0.0, top_k=No
             min_val = top_logits[:, -1]  # min value
             # mask logits
             logits = torch.where(condition=logits < min_val, input=torch.tensor(float('-inf')), other=logits)
-        
+      
         # >> temperature
         if temperature > 0.0:
             logits = logits / temperature
@@ -1007,3 +1007,178 @@ model.train()
 
 需要先安装以下两个库：
 `pip install tensorflow tqdm`
+
+![1719213912457](image/从零开始构建LLM/1719213912457.png)
+
+下载gpt模型并加载
+
+```python
+import os
+
+from huggingface_hub import hf_hub_download
+
+os.environ['http_proxy'] = 'http://ip:port'
+
+os.environ['https_proxy'] = 'http://ip:port'
+
+repo_id = 'openai-community/gpt2'
+save_dir = "gpt2"
+filenames = ["tokenizer.json", "tokenizer_config.json", "vocab.json", "config.json", ".gitattributes", 
+             "64-8bits.tflite", "64-fp16.tflite", "flax_model.msgpack", "merges.txt", "model.safetensors",
+             "pytorch_model.bin", "rust_model.ot"]
+for filename in filenames:
+    hf_hub_download(repo_id=repo_id, local_dir=save_dir, filename=filename)
+
+from transformers import GPT2Model, GPT2Tokenizer, AutoConfig
+
+config = AutoConfig.from_pretrained("./gpt2/config.json")
+tokenizer = GPT2Tokenizer.from_pretrained("./gpt2/")
+model = GPT2Model.from_pretrained("./gpt2/")
+
+```
+
+接下来将模型参数加载至我们的GPTModel中
+
+```python
+# Define model configurations in a dictionary for compactness
+model_configs = {
+    "gpt2-small (124M)": {"emb_dim": 768, "n_layers": 12, "n_heads": 12},
+    "gpt2-medium (355M)": {"emb_dim": 1024, "n_layers": 24, "n_heads": 16},
+    "gpt2-large (774M)": {"emb_dim": 1280, "n_layers": 36, "n_heads": 20},
+    "gpt2-xl (1558M)": {"emb_dim": 1600, "n_layers": 48, "n_heads": 25},
+}
+
+# Copy the base configuration and update with specific model settings
+model_name = "gpt2-small (124M)"  # Example model name
+NEW_CONFIG = GPT_CONFIG_124M.copy()
+NEW_CONFIG.update(model_configs[model_name])
+NEW_CONFIG.update({"context_length": 1024, "qkv_bias": True})
+
+gpt = GPTModel(NEW_CONFIG)
+gpt.eval()
+```
+
+```python
+# assign the OpenAI weights to the corresponding weight tensors in our GPTModel instance
+def assign(left, right):
+    if left.shape != right.shape:
+        raise ValueError(f"Shape mismatch. Left: {left.shape}, Right: {right.shape}")
+    return torch.nn.Parameter(torch.tensor(right))
+
+def load_weights_into_gpt(gpt, model):
+    gpt.tok_emb.weight = assign(gpt.tok_emb.weight, model.wte.weight)
+    gpt.pos_emb.weight = assign(gpt.pos_emb.weight, model.wpe.weight)
+
+    for b in range(len(model.h)):
+        q_w, k_w, v_w = np.split(
+            model.h[b].attn.c_attn.weight, 3, axis=-1
+        )
+
+        gpt.trf_blocks[b].att.W_query.weight =  assign(gpt.trf_blocks[b].att.W_query.weight, q_w.T)
+        gpt.trf_blocks[b].att.W_key.weight =  assign(gpt.trf_blocks[b].att.W_key.weight, k_w.T)
+        gpt.trf_blocks[b].att.W_value.weight = assign(gpt.trf_blocks[b].att.W_value.weight, v_w.T)
+
+        q_b, k_b, v_b = np.split(
+            model.h[b].attn.c_attn.bias, 3, axis=-1
+        )
+
+        gpt.trf_blocks[b].att.W_query.bias = assign(gpt.trf_blocks[b].att.W_query.bias, q_b.T)
+        gpt.trf_blocks[b].att.W_key.bias = assign(gpt.trf_blocks[b].att.W_key.bias, k_b.T)
+        gpt.trf_blocks[b].att.W_value.bias = assign(gpt.trf_blocks[b].att.W_value.bias, v_b.T)
+
+        
+        gpt.trf_blocks[b].att.out_proj.weight = assign(gpt.trf_blocks[b].att.out_proj.weight, model.h[b].attn.c_proj.weight)
+        gpt.trf_blocks[b].att.out_proj.bias = assign(gpt.trf_blocks[b].att.out_proj.bias, model.h[b].attn.c_proj.bias)
+
+        gpt.trf_blocks[b].ff.layer[0].weight = assign(gpt.trf_blocks[b].ff.layer[0].weight, model.h[b].mlp.c_fc.weight.T)
+        gpt.trf_blocks[b].ff.layer[0].bias = assign(gpt.trf_blocks[b].ff.layer[0].bias, model.h[b].mlp.c_fc.bias)
+        gpt.trf_blocks[b].ff.layer[2].weight = assign(gpt.trf_blocks[b].ff.layer[2].weight, model.h[b].mlp.c_proj.weight.T)
+        gpt.trf_blocks[b].ff.layer[2].bias = assign(gpt.trf_blocks[b].ff.layer[2].bias, model.h[b].mlp.c_proj.bias)
+
+        gpt.trf_blocks[b].norm1.scale = assign(gpt.trf_blocks[b].norm1.scale, model.h[b].ln_1.weight)
+        gpt.trf_blocks[b].norm1.shift = assign(gpt.trf_blocks[b].norm1.shift, model.h[b].ln_1.bias)
+        gpt.trf_blocks[b].norm2.scale = assign(gpt.trf_blocks[b].norm2.scale, model.h[b].ln_2.weight)
+        gpt.trf_blocks[b].norm2.shift = assign(gpt.trf_blocks[b].norm2.shift, model.h[b].ln_2.bias)
+    
+    gpt.final_norm.scale = assign(gpt.final_norm.scale, model.ln_f.weight)
+    gpt.final_norm.shift = assign(gpt.final_norm.shift, model.ln_f.bias)
+    gpt.out_head.weight = assign(gpt.out_head.weight, model.wte.weight)
+    return gpt
+
+gpt = load_weights_into_gpt(gpt, model)
+```
+
+使用自定义的GPT进行生成
+
+```python
+tokenids = generate(gpt, idx=text_to_token_ids("hello, my name is", tokenizer).to(device),
+         max_new_tokens=25, context_size=NEW_CONFIG['context_length'],
+         top_k=50, temperature=1.5)
+print(">> generated text By MyGPT: \n", token_ids_to_text(tokenids, tokenizer))
+```
+
+```python
+from transformers import GPT2Model, GPT2Tokenizer
+
+tokenizer = GPT2Tokenizer.from_pretrained("./gpt2/")
+model = GPT2Model.from_pretrained("./gpt2/")
+
+input_text = "Once upon a time"
+
+input_ids = tokenizer.encode(input_text, return_tensors='pt')
+
+def generate_by_gpt2(model, idx, max_new_tokens, context_size, temperature=0.0, top_k=None, eos_id=None):
+    for _ in range(max_new_tokens):
+        # >> context
+        idx_cond = idx if idx.size(0) <= context_size else idx[-context_size:]
+
+        # >> logits
+        with torch.no_grad():
+            logits = model(idx_cond)
+        logits = logits.last_hidden_state[:, -1, :]  # last
+
+        # >> topk
+        if top_k is not None:
+            top_logits, top_pos = torch.topk(logits, top_k)
+            min_val = top_logits[:, -1]  # min value
+            # mask logits
+            logits = torch.where(condition=logits < min_val, input=torch.tensor(float('-inf')), other=logits)
+        
+        # >> temperature
+        if temperature > 0.0:
+            logits = logits / temperature
+            probs = torch.softmax(logits, dim=-1)
+            idx_next = torch.multinomial(probs, num_samples=1)
+        else:
+            idx_next = torch.argmax(logits, dim=-1, keepdim=True)
+        idx = torch.cat((idx, idx_next), dim=1)
+    return idx
+
+model.eval()
+
+generated_ids = generate_by_gpt2(model, idx=input_ids,
+         max_new_tokens=25, context_size=NEW_CONFIG['context_length'],
+         top_k=50, temperature=1.5)
+# 解码生成的文本
+generated_text = tokenizer.decode(generated_ids[0], skip_special_tokens=True)
+
+print(generated_text)
+```
+
+> GPT2Model 与 GPTLMHeadModel不一样， GPT2Model主要用于获取模型的隐藏状态，而GPTLMHeadModel集成了GPT2Model并添加了语言建模的头部，使其能够进行文本生成。
+
+```python
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
+
+model = GPT2LMHeadModel.from_pretrained('./gpt2')
+tokenizer = GPT2Tokenizer.from_pretrained('./gpt2')
+
+text = "Once upon a time"
+input_ids = tokenizer.encode(text, return_tensors='pt')
+
+output = model.generate(input_ids, max_length=50, num_return_sequences=1)
+
+generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+
+print(">> generated text: \n", generated_text)
+```

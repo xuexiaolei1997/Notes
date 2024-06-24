@@ -19,3 +19,23 @@
 ## 复制
 
 `docker cp dir container_id:dir`
+
+## Windows安装docker
+
+> 注意，docker支持windows 19044版本之后的
+>
+> windows的docker依赖**hyper-V**和**wsl**
+
+安装wsl：
+
+`wsl --list -- online`
+
+若这一步报错，将DNS修改为**114.114.114.114，子网掩码为8.8.8.8**
+
+`wsl --install -d Ubuntu-22.04`
+
+`wsl --update`
+
+`wsl --set-default-version 2`
+
+`wsl -l - v` 查看当前wsl版本
