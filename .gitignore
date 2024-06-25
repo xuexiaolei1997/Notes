@@ -3,3 +3,6 @@
 *.pth
 *.h5
 models/
+sms_spam_collection/
+gpt2/
+*.pyc
