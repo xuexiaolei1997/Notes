@@ -39,3 +39,7 @@
 `wsl --set-default-version 2`
 
 `wsl -l - v` 查看当前wsl版本
+
+## 重命名镜像
+
+docker tag IMAGEID REPOSITORY:TAG

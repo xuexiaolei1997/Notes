@@ -46,3 +46,10 @@ class C:
                 setattr(self, f"_{key}", value)
             self._other_params[key] = value
 ```
+
+## python编译
+
+`python -m py_compile test.py`  -> 编译单个文件 pyc
+`python -m compileall .` -> 编译文件夹下所有文件
+
+`cythonize -i test.py` -> 编译为pyd
