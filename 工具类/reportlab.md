@@ -29,3 +29,29 @@ pdf.build(content)
 ![1715218969673](image/reportlab/1715218969673.png)
 
 在上述代码中，可以看，第一步需要声明文档模板，然后在模板上新增内容即可。
+
+## 支持中文
+
+reportlab默认字符中没有中文，需要自己下载中文字体，然后通过以下代码进行中文适配：
+
+```python
+from reportlab.platypus import SimpleDocTemplate, Paragraph
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.pdfbase import pdfmetrics, ttfonts
+
+# 字体所在路径
+simsun_font_path = os.path.join(font_dir, 'simsun.ttc')
+simhei_font_path = os.path.join(font_dir, 'SIMHEI.TTF')
+
+# 注册字体
+pdfmetrics.registerFont(ttfonts.TTFont('SimSun', simsun_font_path))
+pdfmetrics.registerFont(ttfonts.TTFont('SimHei', simhei_font_path))
+
+styles = getSampleStyleSheet()
+# name为自定义style，parent表示父类，继承父类的style，fontName为上述注册字体
+styles.add(ParagraphStyle(name='SimSunPara', parent=styles['Normal'], fontName='SimSun'))
+
+# 使用
+paragraph = Paragraph("测试中文文字", styles['SimSunPara'])  # styles的key为上述自定义添加的style
+
+```
