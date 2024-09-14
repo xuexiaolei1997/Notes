@@ -25,3 +25,7 @@
 5.git merge upstream/master
 
 6.git push origin master
+
+## 显示分支
+
+git branch
