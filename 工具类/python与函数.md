@@ -53,3 +53,34 @@ class C:
 `python -m compileall .` -> 编译文件夹下所有文件
 
 `cythonize -i test.py` -> 编译为pyd
+
+## 远程jupyter配置
+
+
+1、生成配置文件
+
+jupyter notebook --generate-config
+
+2、生成密码
+
+打开ipython，输入
+
+from notebook.auth import passwd
+
+passwd()
+
+运行后会提示输入密码，随便输入
+
+1，这个密码是用来登录jupyter notebook的，然后会生成一个密钥，复制
+
+3、修改配置文件
+
+在 jupyter_notebook_config.py （~/.jupyter/）中找到下面的行，取消注释并修改
+
+c.NotebookApp.ip='*'
+
+c.NotebookApp.password = u'刚才复制的那个密文'
+
+c.NotebookApp.open_browser = False
+
+c.NotebookApp.port =55555#可自行指定一个端口, 访问时使用该端口
