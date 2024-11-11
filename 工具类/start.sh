@@ -4,9 +4,11 @@
 PROGRAM="/usr/local/bin/python"  # 替换为你的编译器路径
 # 执行文件路径
 exe_file="$1"  # 从命令行获取脚本路径
+# 后缀名
+ext="py"
 
 # 检查输入参数
-if [[ -z "$exe_file" ]]; then
+if [[ ! -e "$exe_file" ]]; then
     echo "请提供要执行的脚本路径，例如：./start.sh /path/to/script.ext"
     exit 1
 fi
@@ -16,7 +18,7 @@ LOG_DIR="log"
 mkdir -p "$LOG_DIR"  # 创建日志目录（若不存在）
 
 # 获取脚本名称并去掉 .py 后缀
-script_name=$(basename "$exe_file" .py)
+script_name=$(basename "$exe_file" .${ext})
 # 设置日志文件大小上限（5MB）
 MAX_LOG_SIZE=5242880  # 5MB = 5 * 1024 * 1024 bytes
 
@@ -57,8 +59,7 @@ while true; do
     rotate_log  # 检查并更新日志文件
 
     # 检查程序是否挂掉
-    is_alive=$(check_process)
-    if [[ ! $is_alive ]]; then
+    if [[ ! $(check_process) ]]; then
         echo "$(date '+%Y-%m-%d %H:%M:%S') - 程序正在启动..." | tee -a "$LOG_FILE"
         # 重启程序
         nohup "$PROGRAM" "$exe_file" &>> "$LOG_FILE" &
