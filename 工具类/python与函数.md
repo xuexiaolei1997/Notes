@@ -56,7 +56,6 @@ class C:
 
 ## 远程jupyter配置
 
-
 1、生成配置文件
 
 jupyter notebook --generate-config
@@ -84,3 +83,17 @@ c.NotebookApp.password = u'刚才复制的那个密文'
 c.NotebookApp.open_browser = False
 
 c.NotebookApp.port =55555#可自行指定一个端口, 访问时使用该端口
+
+## pip仅下载不安装
+
+pip download package_name
+
+pip download package_name==version
+
+pip download --only-binary :all: package_name
+
+pip download -d /dir -r requirements.txt
+
+## pip从whl安装
+
+pip install -r requirements.txt --no-index --find-links=/dir
