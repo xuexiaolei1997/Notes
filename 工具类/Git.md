@@ -29,3 +29,28 @@
 ## 显示分支
 
 git branch
+
+## 分支选择性合并
+
+1.切换到源分支
+
+`git checkout branch-origin`
+
+2.查看提交历史以找到需要的提交哈希值：
+
+`git log --oneline`
+
+3.切换到目标分支
+
+`git checkout branch-target`
+
+4.执行 git cherry-pick 命令
+
+1) 挑选单个提交  `git cherry-pick <commit_hash>`
+
+2) 挑选一系列连续的提交  `git cherry-pick <commit_A>^..<commit_B>`
+
+3) 挑选多个不连续的提交  `git cherry-pick <commit_hash_1> <commit_hash_2> <commit_hash_3>`
+
+5.解决冲突、合并代码、推送
+
