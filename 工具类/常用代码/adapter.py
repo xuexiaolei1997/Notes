@@ -37,8 +37,8 @@ class Adapters(abc.ABC):
 #                 下方新增适配器，使用 @ 自动注入            #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-@register_adapter("sklearn")
-class SubAdapters1(Adapters):
+@register_adapter("subadapter1")
+class SubAdapter1(Adapters):
     def __init__(self) -> None:
         print("子类初始化")
     
