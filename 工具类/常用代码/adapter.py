@@ -23,14 +23,14 @@ class Adapters(abc.ABC):
         """
         初始化
         """
-        super().__init__()
+        pass
     
     @abc.abstractmethod
     def test_func(self):
         """
         测试函数
         """
-        print("测试")
+        pass
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
@@ -43,7 +43,7 @@ class SubAdapter1(Adapters):
         print("子类初始化")
     
     def test_func(self):
-        return super().test_func()
+        print("子类测试函数")
 
 # ↑↑ ↑↑ ↑↑ ↑↑ ↑↑ ↑↑ ↑↑ ↑↑ ↑↑ ↑↑ ↑↑ ↑↑ ↑↑ ↑↑ ↑↑ ↑↑ ↑↑ ↑↑ ↑↑ ↑↑
 
