@@ -1,4 +1,27 @@
-# FLAML Tutorials
+# FLAML (Fast and Lightweight AutoML) 完整实战指南
+
+> FLAML 是由微软开源的轻量级、经济高效的自动化机器学习库。支持自动化模型选择、超参数调优（BlendSearch / CFO）、零样本（Zero-Shot）AutoML 以及与 Ray/Spark 的分布式并行计算。
+
+---
+
+## 📑 目录索引
+
+- [1. 任务导向的 AutoML (Task-Oriented AutoML)](#1-task-oriented-automl)
+  - [快速上手 (Quick Start)](#quick-start)
+  - [优化评估指标 (Optimization Metric)](#optimization-metric)
+  - [支持的模型估算器与搜索空间 (Estimator & Search Space)](#estimator-and-search-space)
+  - [自定义模型与搜索空间重载 (Custom Estimator & Search Space Override)](#guidelines-on-tuning-a-custom-estimator)
+  - [优化约束条件 (Constraints)](#constraint)
+  - [模型融合与集成 (Ensemble)](#ensemble)
+  - [重采样与数据切分策略 (Resampling Strategy)](#resampling-strategy)
+  - [并行调优与分布式加速 (Parallel Tuning with Ray / Spark)](#parallel-tuning)
+  - [热启动与试验日志 (Warm Start & Trial Logging)](#warm-start)
+  - [结果提取与时间预算控制 (Retrieving Outcomes & Time Budget)](#retrieve-the-outcomes)
+- [2. 零样本 AutoML (Zero-Shot AutoML)](#2-zero-shot-automl)
+  - [训练前快速获取专家级推荐配置](#can-i-check-the-configuration-before-training)
+  - [零样本与超参数搜索的结合使用](#combine-zero-shot-automl-and-hyperparameter-tuning)
+
+---
 
 ## 1 Task Oriented AutoML
 
