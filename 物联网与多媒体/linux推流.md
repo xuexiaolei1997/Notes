@@ -1,131 +1,127 @@
-# Linux推流
+# Linux 流媒体服务器搭建与 RTSP/RTMP 推拉流实战
 
-## 1.准备ubuntu服务器
+在物联网 IoT、智慧工业视觉与 AI 算法落地中，经常需要搭建流媒体服务器以接收 IPC（网络摄像机）视频流或向算法管线分发 RTSP/RTMP 视频流。
 
-`apt update`
+---
 
-`apt install gcc`
+## 1. 方案 A：MediaMTX 流媒体服务器一键部署 (推荐)
 
-`apt install `
+[MediaMTX](https://github.com/bluenviron/mediamtx)（原名 `rtsp-simple-server`）是目前最流行、轻量且零外部依赖的实时流媒体服务器，原生支持 **RTSP、RTMP、HLS、WebRTC、SRT** 多协议无缝转推与分发。
 
-`apt install vim`
+### 1.1 使用 Docker 容器化一键部署
+```bash
+# 启动 MediaMTX 流媒体服务 (映射 RTSP 8554, RTMP 1935, HLS 8888, WebRTC 8889 端口)
+docker run -d --name mediamtx \
+  --restart always \
+  -p 8554:8554 \
+  -p 1935:1935 \
+  -p 8888:8888 \
+  -p 8889:8889 \
+  bluenviron/mediamtx:latest
+```
 
-`apt-get install libx264-dev`
+### 1.2 使用独立二进制文件运行
+```bash
+# 下载预编译可执行文件 (以 Linux amd64 为例)
+wget https://github.com/bluenviron/mediamtx/releases/download/v1.9.0/mediamtx_v1.9.0_linux_amd64.tar.gz
+tar -zxvf mediamtx_v1.9.0_linux_amd64.tar.gz
 
-## 2.安装x264依赖包
+# 启动服务 (默认自动读取 mediamtx.yml 配置文件)
+./mediamtx
+```
 
-```text
+---
+
+## 2. 方案 B：Ubuntu 源码编译构建 x264 与 FFmpeg
+
+适用于需要深度定制编译参数或在特定 Linux 发行版上构建静态二进制的场景：
+
+### 2.1 安装基础编译工具链
+```bash
+sudo apt update
+sudo apt install -y build-essential cmake git pkg-config yasm nasm libtool
+```
+
+### 2.2 编译安装 x264 (H.264 视频编码库)
+```bash
 git clone https://code.videolan.org/videolan/x264.git
-```
-
-```text
 cd x264
-```
-
-```text
 ./configure --prefix=/usr/local/x264 --enable-shared --enable-static --disable-asm
+make -j$(nproc)
+sudo make install
 ```
 
-```text
-make && make install
+### 2.3 编译安装 FFmpeg (集成 libx264)
+```bash
+wget https://www.ffmpeg.org/releases/ffmpeg-5.1.4.tar.gz
+tar -zxvf ffmpeg-5.1.4.tar.gz
+cd ffmpeg-5.1.4
+
+./configure --prefix=/usr/local/ffmpeg \
+  --enable-shared \
+  --enable-gpl \
+  --enable-libx264 \
+  --enable-pthreads \
+  --extra-cflags="-I/usr/local/x264/include" \
+  --extra-ldflags="-L/usr/local/x264/lib"
+
+make -j$(nproc)
+sudo make install
 ```
 
-编辑环境变量
+### 2.4 配置动态库路径与环境变量
+```bash
+# 添加动态链接库路径
+echo "/usr/local/x264/lib" | sudo tee -a /etc/ld.so.conf.d/custom_libs.conf
+echo "/usr/local/ffmpeg/lib" | sudo tee -a /etc/ld.so.conf.d/custom_libs.conf
+sudo ldconfig
 
-```text
-vim /etc/profile
-```
+# 添加 PATH 环境变量
+echo 'export PATH=/usr/local/ffmpeg/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
 
-```text
-export PATH=/usr/local/x264/bin:$PATH
-export PATH=/usr/local/x264/include:$PATH
-export PATH=/usr/local/x264/lib:$PATH
-```
-
-```text
-source /etc/profile
-```
-
-## 3.安装FFmpeg
-
-```text
-wget http://www.ffmpeg.org/releases/ffmpeg-4.4.tar.gz
-```
-
-```text
-tar -zxvf ffmpeg-4.4.tar.gz
-```
-
-```text
-cd ffmpeg-4.4
-```
-
-```text
-./configure --prefix=/usr/local/ffmpeg --enable-shared --enable-libx264 --enable-gpl --enable-pthreads --extra-cflags=-I/usr/local/x264/include --extra-ldflags=-L/usr/local/x264/lib
-```
-
-```text
-make && make install
-```
-
-```text
-vi /etc/profile
-```
-
-```text
-export PATH=$PATH:/usr/local/ffmpeg/bin
-```
-
-```text
+# 验证安装
 ffmpeg -version
 ```
 
-## 注意
+---
 
-* 报错 yasm/nasm not found or too old. Use –disable-yasm for a crippled build.
+## 3. 端到端推流与拉流实战验证
 
-```text
-wget http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
-tar -zxvf yasm-1.3.0.tar.gz
-cd yasm-1.3.0
-./configure
-make && make install
+### 3.1 FFmpeg 循环推流到 RTSP 服务
+```bash
+# -re 模拟实时速率，-stream_loop -1 无限循环，-rtsp_transport tcp 保证传输不丢包
+ffmpeg -re -stream_loop -1 -i test.mp4 -c:v copy -an -f rtsp -rtsp_transport tcp rtsp://localhost:8554/live/camera1
 ```
 
-* 报错 error while loading shared libraries: libx264.so: cannot open shared object file: No such file
+### 3.2 客户端拉流验证
 
-```text
-vim /etc/ld.so.conf //增加以下内容
-/usr/local/x264/lib //添加x264库路径，添加完保存退出
-ldconfig //使配置生效
+#### 方式 1：使用 FFplay / VLC 播放器测试
+```bash
+ffplay -rtsp_transport tcp rtsp://127.0.0.1:8554/live/camera1
 ```
 
-* 报错：ffmpeg: error while loading shared libraries: libavdevice.so.57: cannot open shared object file: No such file or directory
+#### 方式 2：使用 Python OpenCV 读取实时视频流（AI 算法推理）
+```python
+import cv2
 
-```text
-vim /etc/ld.so.conf //增加以下内容
-/usr/local/ffmpeg/lib  //添加ffmpeg库路径，添加完保存退出
-ldconfig //使配置生效
-```
+# 连接 RTSP 视频流 (指定 TCP 传输防止 UDP 丢包花屏)
+rtsp_url = "rtsp://127.0.0.1:8554/live/camera1"
+cap = cv2.VideoCapture(rtsp_url, cv2.CAP_FFMPEG)
 
-## 4.下载并启动rtsp流媒体服务
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        print("无法接收视频帧 (流已中断)")
+        break
 
-```text
-wget https://github.com/aler9/rtsp-simple-server/releases/download/v0.17.0/rtsp-simple-server_v0.17.0_linux_amd64.tar.gz
-```
+    # 在此处接入目标检测/时序动作识别模型 (如 YOLOv8 / RTMPose)
+    # results = model(frame)
 
-```text
-tar -zxvf rtsp-simple-server_v0.17.0_linux_amd64.tar.gz
-```
+    cv2.imshow("RTSP Stream", frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
-```text
-vim rtsp-simple-server.yml
-```
-
-```text
-将rtspAddress: :8554改为rtspAddress: :4000并保存
-```
-
-```text
-./rtsp-simple-server 
+cap.release()
+cv2.destroyAllWindows()
 ```
