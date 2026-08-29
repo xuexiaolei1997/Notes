@@ -10,3 +10,6 @@ sms_spam_collection/
 gpt2/
 gpt2-medium/
 test/
+.DS_Store
+__pycache__/
+*.db
