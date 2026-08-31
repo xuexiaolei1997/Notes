@@ -43,11 +43,20 @@ Notes/
 
 ### 🧠 大语言模型
 
-| 笔记 | 说明 | 模块 |
+| 模块/笔记 | 说明 | 领域/板块 |
 | :--- | :--- | :--- |
-| [01. Claude 101](大语言模型/academy_claude/01-claude-101-notes.md) | Claude 基础与核心概念 | Anthropic Academy |
-| [02. Getting Started with Claude.ai](大语言模型/academy_claude/02-getting-started-with-claude-ai-notes.md) | Claude.ai 交互与效率指南 | Anthropic Academy |
-| [03. Intro to Projects](大语言模型/academy_claude/03-intro-to-projects-notes.md) | Claude Projects 项目管理与知识库应用 | Anthropic Academy |
+| [Claude Academy 学习全集导航](大语言模型/academy_claude/README.md) | Anthropic 官方体系化课程笔记导航（涵盖 6 大核心板块） | 全景导航 |
+| ↳ [01. Claude 101](大语言模型/academy_claude/claude_ai/01-claude-101-notes.md) | Claude 基础、核心组件与 4D 框架入门 | Claude.ai |
+| ↳ [02. Getting Started with Claude.ai](大语言模型/academy_claude/claude_ai/02-getting-started-with-claude-ai-notes.md) | Claude.ai 交互与效率指南 | Claude.ai |
+| ↳ [03. Intro to Projects](大语言模型/academy_claude/claude_ai/03-intro-to-projects-notes.md) | Claude Projects 项目管理与知识库应用 | Claude.ai |
+| ↳ [04. Choosing the Right Claude Model](大语言模型/academy_claude/claude_ai/04-choosing-the-right-claude-model-notes.md) | Claude 模型家族选型（Haiku/Sonnet/Opus/Fable）与分层路由 | Claude.ai |
+| ↳ [01. Introduction to Claude Cowork](大语言模型/academy_claude/claude_cowork/01-introduction-to-claude-cowork-notes.md) | Cowork 桌面端多步任务委派、工作目录、Task Loop 与成品交付 | Claude Cowork |
+| ↳ [02. Getting Set Up](大语言模型/academy_claude/claude_cowork/02-getting-set-up-notes.md) | Cowork 环境搭建、Working Folders 读写配置、Connectors 与权限模型 | Claude Cowork |
+| ↳ [03. Scheduled Tasks](大语言模型/academy_claude/claude_cowork/03-scheduled-tasks-notes.md) | Cowork 定时任务、云端远程静默执行、周期性晨报与自动化监控 | Claude Cowork |
+| ↳ [04. The Task Loop](大语言模型/academy_claude/claude_cowork/04-the-task-loop-notes.md) | Task Loop 四阶段（Plan/Execute/Steer/Verify）与 Human-in-the-Loop 协作范式 | Claude Cowork |
+| ↳ [05. Research & Analysis at Scale](大语言模型/academy_claude/claude_cowork/05-research-analysis-at-scale-notes.md) | 多源并行研究、内置 Chromium 浏览器、结构化分析报告交付 | Claude Cowork |
+| ↳ [06. Giving Cowork Context](大语言模型/academy_claude/claude_cowork/06-giving-cowork-context-notes.md) | 四大上下文支柱：Global Instructions / Projects / Skills / Plugins | Claude Cowork |
+| ↳ [07. File & Document Tasks](大语言模型/academy_claude/claude_cowork/07-file-document-tasks-notes.md) | 批量文件管理、多格式文档生成、跨文件数据提取与汇总 | Claude Cowork |
 
 ---
 
