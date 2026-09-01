@@ -45,7 +45,7 @@ Notes/
 
 | 模块/笔记 | 说明 | 领域/板块 |
 | :--- | :--- | :--- |
-| [Claude Academy 学习全集导航](大语言模型/academy_claude/README.md) | Anthropic 官方体系化课程笔记导航（涵盖 6 大核心板块） | 全景导航 |
+| [Claude Academy 学习全集导航](大语言模型/academy_claude/README.md) | Anthropic 官方体系化课程笔记导航（涵盖 5 大核心板块） | 全景导航 |
 | ↳ [01. Claude 101](大语言模型/academy_claude/claude_ai/01-claude-101-notes.md) | Claude 基础、核心组件与 4D 框架入门 | Claude.ai |
 | ↳ [02. Getting Started with Claude.ai](大语言模型/academy_claude/claude_ai/02-getting-started-with-claude-ai-notes.md) | Claude.ai 交互与效率指南 | Claude.ai |
 | ↳ [03. Intro to Projects](大语言模型/academy_claude/claude_ai/03-intro-to-projects-notes.md) | Claude Projects 项目管理与知识库应用 | Claude.ai |
@@ -78,6 +78,20 @@ Notes/
 | ↳ [11. MCP](大语言模型/academy_claude/claude_code/11-mcp-notes.md) | MCP 开放标准、两类服务器、三种作用域、上下文成本三选一策略 | Claude Code |
 | ↳ [12. Hooks](大语言模型/academy_claude/claude_code/12-hooks-notes.md) | 确定性钩子、五类事件、PreToolUse 拦截协议、团队共享 | Claude Code |
 | ↳ 🏆 结课测验 | Course quiz 全部通过 · 12 课 + 测验全部完成 | Claude Code ✅ |
+| ↳ [01. What is the Claude Platform?](大语言模型/academy_claude/claude_platform/01-what-is-the-claude-platform-notes.md) | Platform 四大组成、三层架构、messages.create 首例 | Claude Platform |
+| ↳ [02. Your first API call](大语言模型/academy_claude/claude_platform/02-your-first-api-call-notes.md) | API Key 安全、请求三要素、system 塑形、block 数组 | Claude Platform |
+| ↳ [03. Choosing the right model](大语言模型/academy_claude/claude_platform/03-choosing-the-right-model-notes.md) | 四档模型、自下而上 Eval、usage 计费、按任务路由 | Claude Platform |
+| ↳ [04. The agent loop explained](大语言模型/academy_claude/claude_platform/04-the-agent-loop-explained-notes.md) | 五步循环手写、stop_reason 分支、所有权分工 | Claude Platform |
+| ↳ [05. What is tool use?](大语言模型/academy_claude/claude_platform/05-what-is-tool-use-notes.md) | 工具三要素、description 铁律、Tool Runner | Claude Platform |
+| ↳ [06. What is thinking?](大语言模型/academy_claude/claude_platform/06-what-is-thinking-notes.md) | Extended Thinking、自适应、effort 五档 | Claude Platform |
+| ↳ [07. Built-in tools](大语言模型/academy_claude/claude_platform/07-built-in-tools-notes.md) | Server Tools 三件套、无循环响应、Client Tools | Claude Platform |
+| ↳ [08. Skills](大语言模型/academy_claude/claude_platform/08-skills-notes.md) | SKILL.md 上传挂载、what vs how、渐进式加载 | Claude Platform |
+| ↳ [09. MCP](大语言模型/academy_claude/claude_platform/09-mcp-notes.md) | 维护责任转移、三分法、mcp_toolset、工具级开关 | Claude Platform |
+| ↳ [10. Context management](大语言模型/academy_claude/claude_platform/10-context-management-notes.md) | 上下文构成、四大模式、故障模式选型 | Claude Platform |
+| ↳ [11. What are managed agents?](大语言模型/academy_claude/claude_platform/11-what-are-managed-agents-notes.md) | 托管循环、三示例（看板/研究/应急）、Rubric+Grader、八大构建块 | Claude Platform |
+| ↳ [12. Building your first managed agent](大语言模型/academy_claude/claude_platform/12-building-your-first-managed-agent-notes.md) | 四大原语、五步流程、先开流再点火、三种关键事件、托管 vs 手动取舍 | Claude Platform |
+| ↳ [13. Building with Claude Code](大语言模型/academy_claude/claude_platform/13-building-with-claude-code-notes.md) | Claude API 内置 Skill、好 Prompt 三要素、定义-递交-返回形状、审 diff | Claude Platform |
+| ↳ 🏆 结课测验 | Claude Platform 101 quiz 已通过 · 正确率 80% · 13 课 + 测验全部完成 | Claude Platform ✅ |
 
 ---
 
