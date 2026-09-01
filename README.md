@@ -56,7 +56,15 @@ Notes/
 | ↳ [04. The Task Loop](大语言模型/academy_claude/claude_cowork/04-the-task-loop-notes.md) | Task Loop 四阶段（Plan/Execute/Steer/Verify）与 Human-in-the-Loop 协作范式 | Claude Cowork |
 | ↳ [05. Research & Analysis at Scale](大语言模型/academy_claude/claude_cowork/05-research-analysis-at-scale-notes.md) | 多源并行研究、内置 Chromium 浏览器、结构化分析报告交付 | Claude Cowork |
 | ↳ [06. Giving Cowork Context](大语言模型/academy_claude/claude_cowork/06-giving-cowork-context-notes.md) | 四大上下文支柱：Global Instructions / Projects / Skills / Plugins | Claude Cowork |
-| ↳ [07. File & Document Tasks](大语言模型/academy_claude/claude_cowork/07-file-document-tasks-notes.md) | 批量文件管理、多格式文档生成、跨文件数据提取与汇总 | Claude Cowork |
+| ↳ [07. Skills: Teach Claude Cowork your way](大语言模型/academy_claude/claude_cowork/07-skills-notes.md) | Skill 可复用 Playbook、四大构件（SKILL.md/Assets/References/Scripts）、用 Claude 构建 Skill | Claude Cowork |
+| ↳ [08. Plugins: Encode your team's expertise](大语言模型/academy_claude/claude_cowork/08-plugins-notes.md) | Plugin 打包（Skills+Connectors+Subagents）、两种形态、Marketplace 安装与定制、/setup-cowork | Claude Cowork |
+| ↳ [09. Claude in Chrome](大语言模型/academy_claude/claude_cowork/09-claude-in-chrome-notes.md) | 无 Connector 工具的浏览器桥梁、Chrome 与 Cowork 协同、登录与访问边界 | Claude Cowork |
+| ↳ [10. Claude for Microsoft 365](大语言模型/academy_claude/claude_cowork/10-claude-for-microsoft-365-notes.md) | Word/Excel/PPT/Outlook 内嵌 Add-in、跨应用上下文流转、M365 vs Cowork 选型 | Claude Cowork |
+| ↳ [11. Best practices for working safely](大语言模型/academy_claude/claude_cowork/11-best-practices-working-safely-notes.md) | 专用工作目录、破坏性动词消歧、执行中三查、不当使用排除清单 | Claude Cowork |
+| ↳ [12. Validating skills for plugins](大语言模型/academy_claude/claude_cowork/12-validating-skills-notes.md) | Evals 对照实验（有/无 Skill 基线）、反馈驱动迭代、发布标准与边界情况 | Claude Cowork |
+| ↳ [13. Share what you build with your team](大语言模型/academy_claude/claude_cowork/13-share-with-team-notes.md) | 私有 Marketplace 分发、四种安装级别、四条分发路径、插件治理四习惯 | Claude Cowork |
+| ↳ [14. Wrap up and next steps](大语言模型/academy_claude/claude_cowork/14-wrap-up-next-steps-notes.md) | 四模块全景回顾、贯穿主线（委派真实工作）、本周行动五选一、进阶路径 | Claude Cowork |
+| ↳ 🏆 结课测验 | Quiz on Claude Cowork 满分通过 · 14 课 + 测验全部完成 | Claude Cowork ✅ |
 
 ---
 

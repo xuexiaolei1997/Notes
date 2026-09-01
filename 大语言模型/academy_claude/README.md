@@ -29,16 +29,27 @@ academy_claude/
 | [03. Intro to Projects](claude_ai/03-intro-to-projects-notes.md) | Claude Projects 项目管理与知识库应用 | ✅ 已完成 |
 | [04. Choosing the Right Claude Model](claude_ai/04-choosing-the-right-claude-model-notes.md) | Claude 模型家族选型（Haiku/Sonnet/Opus/Fable）与分层路由 | ✅ 已完成 |
 
-### 2. 👥 Claude Cowork
-| 笔记 | 说明 | 状态 |
-| :--- | :--- | :--- |
-| [01. Introduction to Claude Cowork](claude_cowork/01-introduction-to-claude-cowork-notes.md) | Cowork 桌面端多步任务委派、工作目录、Task Loop 与成品交付 | ✅ 已完成 |
-| [02. Getting Set Up](claude_cowork/02-getting-set-up-notes.md) | Cowork 环境搭建、Working Folders 读写配置、Connectors 与权限模型 | ✅ 已完成 |
-| [03. Scheduled Tasks](claude_cowork/03-scheduled-tasks-notes.md) | Cowork 定时任务、云端远程静默执行、周期性晨报与自动化监控 | ✅ 已完成 |
-| [04. The Task Loop](claude_cowork/04-the-task-loop-notes.md) | Task Loop 四阶段（Plan/Execute/Steer/Verify）与 Human-in-the-Loop 协作范式 | ✅ 已完成 |
-| [05. Research & Analysis at Scale](claude_cowork/05-research-analysis-at-scale-notes.md) | 多源并行研究、内置 Chromium 浏览器、结构化分析报告交付 | ✅ 已完成 |
-| [06. Giving Cowork Context](claude_cowork/06-giving-cowork-context-notes.md) | 四大上下文支柱：Global Instructions / Projects / Skills / Plugins | ✅ 已完成 |
-| [07. File & Document Tasks](claude_cowork/07-file-document-tasks-notes.md) | 批量文件管理、多格式文档生成、跨文件数据提取与汇总 | ✅ 已完成 |
+### 2. 👥 Claude Cowork（新版 14 课 + 1 测验 · 约 2.5 小时 · 🎉 已全部完成）
+
+> 📢 **改版说明**：课程已由旧版 7 课原地改版为 **14 课 + 1 测验**，分为 4 大模块（Meet Claude Cowork / Make Claude Cowork yours / Use Claude wherever you work / Sharing and safety）。旧版 7 个课程 URL slug 全部保留但内容重组：01–06 号笔记主题与新课程 L1–L6 基本对应；旧版第 7 课《File & Document Tasks》已被《Skills》取代，文件与文档自动化能力已并入 L3/L4/L10 等课时。
+
+| 笔记 | 课程（新版标题） | 模块 | 状态 |
+| :--- | :--- | :--- | :--- |
+| [01. Introduction to Claude Cowork](claude_cowork/01-introduction-to-claude-cowork-notes.md) | L1. What is Claude Cowork | Meet Claude Cowork | ✅ 已完成 |
+| [02. Getting Set Up](claude_cowork/02-getting-set-up-notes.md) | L2. Setting up Claude Cowork | Meet Claude Cowork | ✅ 已完成 |
+| [03. Scheduled Tasks](claude_cowork/03-scheduled-tasks-notes.md) | L3. What Claude Cowork can do for you | Meet Claude Cowork | ✅ 已完成 *（旧版主题，slug 未变）* |
+| [04. The Task Loop](claude_cowork/04-the-task-loop-notes.md) | L4. Hand Claude Cowork your first task | Meet Claude Cowork | ✅ 已完成 *（旧版主题，slug 未变）* |
+| [05. Research & Analysis at Scale](claude_cowork/05-research-analysis-at-scale-notes.md) | L5. Get better results faster | Make Claude Cowork yours | ✅ 已完成 *（旧版主题，slug 未变）* |
+| [06. Giving Cowork Context](claude_cowork/06-giving-cowork-context-notes.md) | L6. Standing context: Global instructions and projects | Make Claude Cowork yours | ✅ 已完成 |
+| [07. Skills: Teach Claude Cowork your way](claude_cowork/07-skills-notes.md) | L7. Skills: Teach Claude Cowork your way | Make Claude Cowork yours | ✅ 已完成 *（新版）* |
+| [08. Plugins: Encode your team's expertise](claude_cowork/08-plugins-notes.md) | L8. Plugins: Encode your team's expertise | Make Claude Cowork yours | ✅ 已完成 *（新版）* |
+| [09. Claude in Chrome](claude_cowork/09-claude-in-chrome-notes.md) | L9. Claude in Chrome | Use Claude wherever you work | ✅ 已完成 *（新版）* |
+| [10. Claude for Microsoft 365](claude_cowork/10-claude-for-microsoft-365-notes.md) | L10. Claude for Microsoft 365 | Use Claude wherever you work | ✅ 已完成 *（新版）* |
+| [11. Best practices for working safely](claude_cowork/11-best-practices-working-safely-notes.md) | L11. Best practices for working safely | Sharing and safety | ✅ 已完成 *（新版）* |
+| [12. Validating skills for plugins](claude_cowork/12-validating-skills-notes.md) | L12. Validating skills for plugins | Sharing and safety | ✅ 已完成 *（新版）* |
+| [13. Share what you build with your team](claude_cowork/13-share-with-team-notes.md) | L13. Share what you build with your team | Sharing and safety | ✅ 已完成 *（新版）* |
+| [14. Wrap up and next steps](claude_cowork/14-wrap-up-next-steps-notes.md) | L14. Wrap up and next steps | Sharing and safety | ✅ 已完成 *（新版）* |
+| Quiz on Claude Cowork | 结课测验（约 8 分钟） | — | 🏆 已通过 · **满分** |
 
 ### 3. 💻 Claude Code
 | 笔记 | 说明 | 状态 |
