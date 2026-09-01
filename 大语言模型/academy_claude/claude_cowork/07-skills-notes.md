@@ -1,9 +1,9 @@
 # Claude Cowork 实战: 《Skills: Teach Claude Cowork your way》技能系统完全指南
 
-> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/introduction-to-claude-cowork/file-document-tasks`)
-> **课程定位**：掌握 Cowork 的 Skill 机制——把重复性工作流程沉淀为可复用的 Playbook，让 Claude 按你的标准和方式自主完成整类任务
-> **核心主题**：Skill 定义与自动触发、四大构件（SKILL.md / Assets / References / Scripts）、用 Claude 构建 Skill、Skill 管理与迭代
-> **课程时长**：约 10 分钟（第 7/14 课）
+> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/introduction-to-claude-cowork/file-document-tasks`)  
+> **课程定位**：掌握 Cowork 的 Skill 机制——把重复性工作流程沉淀为可复用的 Playbook，让 Claude 按你的标准和方式自主完成整类任务  
+> **核心主题**：Skill 定义与自动触发、四大构件（SKILL.md / Assets / References / Scripts）、用 Claude 构建 Skill、Skill 管理与迭代  
+> **课程时长**：约 10 分钟（第 7/14 课）  
 > ⚠️ **改版说明**：课程已由旧版 7 课扩容为 14 课 + 1 测验；本课 URL slug 沿用旧版 `file-document-tasks`，但内容已更新为《Skills》主题
 
 ---

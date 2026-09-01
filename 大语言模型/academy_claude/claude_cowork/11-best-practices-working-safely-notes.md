@@ -1,8 +1,8 @@
 # Claude Cowork 实战: 《Best practices for working safely》安全工作最佳实践指南
 
-> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/introduction-to-claude-cowork/permissions-usage-choosing-your-model`)
-> **课程定位**：在把真实工作交给 Cowork 之后，掌握"你这一侧"要做的安全功课——工作区设置、防误伤的 Prompt 写法、执行中的三个检查点，以及何时不应使用 Cowork
-> **核心主题**：专用 Working Folder、不可再生文件先备份、破坏性动词消歧、边界声明、执行中三查、不当使用场景清单
+> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/introduction-to-claude-cowork/permissions-usage-choosing-your-model`)  
+> **课程定位**：在把真实工作交给 Cowork 之后，掌握"你这一侧"要做的安全功课——工作区设置、防误伤的 Prompt 写法、执行中的三个检查点，以及何时不应使用 Cowork  
+> **核心主题**：专用 Working Folder、不可再生文件先备份、破坏性动词消歧、边界声明、执行中三查、不当使用场景清单  
 > **课程时长**：约 9 分钟（第 11/14 课 · "Sharing and safety in Claude Cowork" 模块第 1 课）
 
 ---

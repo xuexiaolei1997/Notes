@@ -1,8 +1,8 @@
 # Claude Cowork 实战: 《Wrap up and next steps》课程总结与进阶路线图
 
-> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/introduction-to-claude-cowork/troubleshooting-next-steps`)
-> **课程定位**：Cowork 101 收官课——回顾四大模块的能力弧线，选定本周就做的一个行动，并规划课程之后的学习进阶路径
-> **核心主题**：四模块全景回顾、五个"本周行动"选项、进阶学习路径推荐
+> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/introduction-to-claude-cowork/troubleshooting-next-steps`)  
+> **课程定位**：Cowork 101 收官课——回顾四大模块的能力弧线，选定本周就做的一个行动，并规划课程之后的学习进阶路径  
+> **核心主题**：四模块全景回顾、五个"本周行动"选项、进阶学习路径推荐  
 > **课程时长**：约 2 分钟（第 14/14 课 · "Sharing and safety in Claude Cowork" 模块第 4 课）
 
 ---
@@ -41,7 +41,7 @@ flowchart LR
 
 ## 2. 贯穿全课的主线
 
-> **The throughline: Cowork goes beyond chat to allow you to delegate real work. Everything else in the course builds on that.**
+> **The throughline: Cowork goes beyond chat to allow you to delegate real work. Everything else in the course builds on that.**  
 > （主线：Cowork 超越了对话，让你得以委派真实的工作。课程中的其他一切，都建立在这句话之上。）
 
 ```mermaid

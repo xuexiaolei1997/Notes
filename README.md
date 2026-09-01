@@ -65,6 +65,19 @@ Notes/
 | ↳ [13. Share what you build with your team](大语言模型/academy_claude/claude_cowork/13-share-with-team-notes.md) | 私有 Marketplace 分发、四种安装级别、四条分发路径、插件治理四习惯 | Claude Cowork |
 | ↳ [14. Wrap up and next steps](大语言模型/academy_claude/claude_cowork/14-wrap-up-next-steps-notes.md) | 四模块全景回顾、贯穿主线（委派真实工作）、本周行动五选一、进阶路径 | Claude Cowork |
 | ↳ 🏆 结课测验 | Quiz on Claude Cowork 满分通过 · 14 课 + 测验全部完成 | Claude Cowork ✅ |
+| ↳ [01. What is Claude Code?](大语言模型/academy_claude/claude_code/01-what-is-claude-code-notes.md) | Agentic 编程工具、AI Agent 定义、四大核心能力、上下文/权限/犯错三大认知 | Claude Code |
+| ↳ [02. How Claude Code works](大语言模型/academy_claude/claude_code/02-how-claude-code-works-notes.md) | Agentic Loop 五步循环、上下文 Compaction、工具语义调度、四种权限模式 | Claude Code |
+| ↳ [03. Installing Claude Code](大语言模型/academy_claude/claude_code/03-installing-claude-code-notes.md) | 全平台安装、目录即权限边界、五种入口横评与选型 | Claude Code |
+| ↳ [04. Your first prompt](大语言模型/academy_claude/claude_code/04-your-first-prompt-notes.md) | Prompt 描述性三要素、Shift+Tab 权限模式、Plan Mode、暗色模式实战 | Claude Code |
+| ↳ [05. Explore → Plan → Code → Commit](大语言模型/academy_claude/claude_code/05-explore-plan-code-commit-notes.md) | 核心工作流四部曲、编码三技巧、CLAUDE.md 沉淀、Subagent 审查 | Claude Code |
+| ↳ [06. Context management](大语言模型/academy_claude/claude_code/06-context-management-notes.md) | 上下文机制与 Compaction、三命令分工、省上下文四技巧 | Claude Code |
+| ↳ [07. Code review](大语言模型/academy_claude/claude_code/07-code-review-notes.md) | /diff 三类必查项、/rewind 回滚、/code-review 复审、三堆处置法 | Claude Code |
+| ↳ [08. The CLAUDE.md file](大语言模型/academy_claude/claude_code/08-claude-md-file-notes.md) | 项目持久记忆、三大板块模板、两级记忆层次、/init | Claude Code |
+| ↳ [09. Subagents](大语言模型/academy_claude/claude_code/09-subagents-notes.md) | 独立上下文并行委派、/agents 向导、持久记忆与预载 Skills | Claude Code |
+| ↳ [10. Skills](大语言模型/academy_claude/claude_code/10-skills-notes.md) | SKILL.md 自动匹配、两级存储、Skills/CLAUDE.md/Slash 命令三方对比 | Claude Code |
+| ↳ [11. MCP](大语言模型/academy_claude/claude_code/11-mcp-notes.md) | MCP 开放标准、两类服务器、三种作用域、上下文成本三选一策略 | Claude Code |
+| ↳ [12. Hooks](大语言模型/academy_claude/claude_code/12-hooks-notes.md) | 确定性钩子、五类事件、PreToolUse 拦截协议、团队共享 | Claude Code |
+| ↳ 🏆 结课测验 | Course quiz 全部通过 · 12 课 + 测验全部完成 | Claude Code ✅ |
 
 ---
 

@@ -51,10 +51,22 @@ academy_claude/
 | [14. Wrap up and next steps](claude_cowork/14-wrap-up-next-steps-notes.md) | L14. Wrap up and next steps | Sharing and safety | ✅ 已完成 *（新版）* |
 | Quiz on Claude Cowork | 结课测验（约 8 分钟） | — | 🏆 已通过 · **满分** |
 
-### 3. 💻 Claude Code
+### 3. 💻 Claude Code（Claude Code 101 · 12 课 · 🎉 已全部完成）
 | 笔记 | 说明 | 状态 |
 | :--- | :--- | :--- |
-| *待更新* | 终端 Agentic 编程、IDE 集成与自动化研发 | ⏳ 待学习 |
+| [01. What is Claude Code?](claude_code/01-what-is-claude-code-notes.md) | Agentic 编程工具定位、AI Agent 定义、四大核心能力、三大使用认知 | ✅ 已完成 |
+| [02. How Claude Code works](claude_code/02-how-claude-code-works-notes.md) | Agentic Loop 五步循环、上下文自动压缩、工具机制、四种权限模式 | ✅ 已完成 |
+| [03. Installing Claude Code](claude_code/03-installing-claude-code-notes.md) | 全平台安装（终端/VS Code/JetBrains/Desktop/Web）、目录即权限边界、入口选型 | ✅ 已完成 |
+| [04. Your first prompt](claude_code/04-your-first-prompt-notes.md) | Prompt 描述性三要素、Shift+Tab 切权限模式、Plan Mode 先谋后动、暗色模式实战 | ✅ 已完成 |
+| [05. The explore → plan → code → commit workflow](claude_code/05-explore-plan-code-commit-notes.md) | 核心工作流四部曲、Plan Mode 纠偏黄金位、编码三技巧、Subagent 审查 | ✅ 已完成 |
+| [06. Context management](claude_code/06-context-management-notes.md) | 上下文窗口机制、/compact · /clear · /context 三命令、省上下文四技巧 | ✅ 已完成 |
+| [07. Code review](claude_code/07-code-review-notes.md) | /diff 亲读三类必查项、/rewind 回滚、/code-review 干净复审、三堆处置法 | ✅ 已完成 |
+| [08. The CLAUDE.md file](claude_code/08-claude-md-file-notes.md) | 项目持久记忆、三大板块模板、项目级/用户级两层、/init 生成 | ✅ 已完成 |
+| [09. Subagents](claude_code/09-subagents-notes.md) | 独立上下文并行委派、/agents 创建向导、持久记忆与预载 Skills | ✅ 已完成 |
+| [10. Skills](claude_code/10-skills-notes.md) | SKILL.md 自动匹配机制、个人/项目两级存储、与 CLAUDE.md/Slash 命令三方对比 | ✅ 已完成 |
+| [11. MCP](claude_code/11-mcp-notes.md) | Model Context Protocol、HTTP/Stdio 两类服务器、三种作用域、上下文成本与替代方案 | ✅ 已完成 |
+| [12. Hooks](claude_code/12-hooks-notes.md) | 确定性生命周期钩子、五类事件、PreToolUse 退出码拦截、团队共享 | ✅ 已完成 |
+| 🏆 结课测验 | Course quiz 全部通过 · 12 课 + 测验全部完成 | ✅ 满分通过 |
 
 ### 4. 🏷️ Claude Tag
 | 笔记 | 说明 | 状态 |

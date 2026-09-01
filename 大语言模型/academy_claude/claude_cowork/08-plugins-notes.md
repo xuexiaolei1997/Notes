@@ -1,8 +1,8 @@
 # Claude Cowork 实战: 《Plugins: Encode your team's expertise》插件系统与团队专家经验封装指南
 
-> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/introduction-to-claude-cowork/plugins-cowork-as-a-specialist`)
-> **课程定位**：掌握 Cowork 的 Plugin 机制——把围绕某类工作的多个 Skill 及其依赖的 Connectors、Subagents 打包成可安装的"团队工具箱"，让专家经验随安装传播而非锁在个人脑子里
-> **核心主题**：Plugin 定义与打包内容、两种插件形态、Marketplace 安装、定制与自建、Subagent 概念
+> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/introduction-to-claude-cowork/plugins-cowork-as-a-specialist`)  
+> **课程定位**：掌握 Cowork 的 Plugin 机制——把围绕某类工作的多个 Skill 及其依赖的 Connectors、Subagents 打包成可安装的"团队工具箱"，让专家经验随安装传播而非锁在个人脑子里  
+> **核心主题**：Plugin 定义与打包内容、两种插件形态、Marketplace 安装、定制与自建、Subagent 概念  
 > **课程时长**：约 15 分钟（第 8/14 课）
 
 ---
@@ -144,7 +144,7 @@ flowchart LR
 
 课程强调的重要观念：
 
-> A plugin from the marketplace is a **strong default, not a final answer**.
+> A plugin from the marketplace is a **strong default, not a final answer**.  
 > （Marketplace 插件是一个强力的默认起点，而非最终答案。）
 
 插件内的 Skills 和 Connectors 用的是**通用版工作流**，而你的团队有自己的模板、定义和步骤——因此**任何已安装插件都可以被塑造**。

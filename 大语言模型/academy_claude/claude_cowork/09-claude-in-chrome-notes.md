@@ -1,8 +1,8 @@
 # Claude Cowork 实战: 《Claude in Chrome》浏览器内 AI 协作桥梁指南
 
-> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/introduction-to-claude-cowork/claude-in-chrome`)
-> **课程定位**：掌握 Claude in Chrome——为没有 Connector 的浏览器工具（内部仪表板、供应商门户、登录后的 Web 应用）架起 AI 协作桥梁，并与 Cowork 联动完成"一次委派、多源上下文"的成品交付
-> **核心主题**：无 Connector 工具的浏览器桥接、Chrome 与 Cowork 协同、敏感操作审批、登录与访问边界
+> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/introduction-to-claude-cowork/claude-in-chrome`)  
+> **课程定位**：掌握 Claude in Chrome——为没有 Connector 的浏览器工具（内部仪表板、供应商门户、登录后的 Web 应用）架起 AI 协作桥梁，并与 Cowork 联动完成"一次委派、多源上下文"的成品交付  
+> **核心主题**：无 Connector 工具的浏览器桥接、Chrome 与 Cowork 协同、敏感操作审批、登录与访问边界  
 > **课程时长**：约 10 分钟（第 9/14 课 · "Use Claude wherever you work" 模块第 1 课）
 
 ---

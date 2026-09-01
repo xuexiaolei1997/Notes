@@ -1,8 +1,8 @@
 # Claude Cowork 实战: 《Validating skills for plugins》用 Evals 验证 Skill 与 Plugin 指南
 
-> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/introduction-to-claude-cowork/validating-skills-for-plugins`)
-> **课程定位**：在依赖或分享你构建的 Skill / Plugin 之前，用轻量级 Evals（评估）验证其输出质量——像测试小产品一样测试你要交付给他人使用的自动化
-> **核心主题**：Eval 的定义与必要性、skill-creator 内置评估机制（有/无 Skill 对照实验）、反馈驱动迭代、发布标准
+> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/introduction-to-claude-cowork/validating-skills-for-plugins`)  
+> **课程定位**：在依赖或分享你构建的 Skill / Plugin 之前，用轻量级 Evals（评估）验证其输出质量——像测试小产品一样测试你要交付给他人使用的自动化  
+> **核心主题**：Eval 的定义与必要性、skill-creator 内置评估机制（有/无 Skill 对照实验）、反馈驱动迭代、发布标准  
 > **课程时长**：约 8 分钟（第 12/14 课 · "Sharing and safety in Claude Cowork" 模块第 2 课）
 
 ---
@@ -121,8 +121,8 @@ flowchart LR
 
 课程明确反对"完美主义闸门"：
 
-> The bar for shipping a skill — to yourself, to a teammate — **isn't perfect evals**. It's that:
-> 1. **The cases you care about pass meaningfully better than the baseline**（你在意的场景，显著优于基线）
+> The bar for shipping a skill — to yourself, to a teammate — **isn't perfect evals**. It's that:  
+> 1. **The cases you care about pass meaningfully better than the baseline**（你在意的场景，显著优于基线）  
 > 2. **You've named the cases you don't yet handle**（明确说清你还不支持哪些场景）
 
 ```mermaid

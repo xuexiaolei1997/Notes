@@ -1,8 +1,8 @@
 # Claude Cowork 实战: 《Claude for Microsoft 365》Office 套件内嵌 AI 协作指南
 
-> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/introduction-to-claude-cowork/claude-for-microsoft-365`)
-> **课程定位**：掌握 Claude 以 Add-in 形式嵌入 Word / Excel / PowerPoint / Outlook 的文档内协作——在"你正在编辑的文件"上原地工作，并在一次对话中跨应用传递上下文
-> **核心主题**：四大 Office 应用内的具体能力、跨应用上下文流转（Outlook→Word→Excel→PPT→Outlook）、M365 vs Cowork 选型法则
+> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/introduction-to-claude-cowork/claude-for-microsoft-365`)  
+> **课程定位**：掌握 Claude 以 Add-in 形式嵌入 Word / Excel / PowerPoint / Outlook 的文档内协作——在"你正在编辑的文件"上原地工作，并在一次对话中跨应用传递上下文  
+> **核心主题**：四大 Office 应用内的具体能力、跨应用上下文流转（Outlook→Word→Excel→PPT→Outlook）、M365 vs Cowork 选型法则  
 > **课程时长**：约 5 分钟（第 10/14 课 · "Use Claude wherever you work" 模块第 2 课）
 
 ---

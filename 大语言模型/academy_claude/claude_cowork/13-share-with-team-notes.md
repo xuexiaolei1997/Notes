@@ -1,8 +1,8 @@
 # Claude Cowork 实战: 《Share what you build with your team》团队分发与共享插件治理指南
 
-> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/introduction-to-claude-cowork/share-what-you-build-with-your-team`)
-> **课程定位**：掌握 Skill/Plugin 从"个人好用"规模化到"全团队可用"的最后一公里——通过组织私有 Marketplace 分发插件，以及让共享插件长期保持健康的治理习惯
-> **核心主题**：私有 Marketplace 分发机制、四种安装级别（Available/Default/Required/Hidden）、三条分发路径、共享插件健康维护四习惯
+> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/introduction-to-claude-cowork/share-what-you-build-with-your-team`)  
+> **课程定位**：掌握 Skill/Plugin 从"个人好用"规模化到"全团队可用"的最后一公里——通过组织私有 Marketplace 分发插件，以及让共享插件长期保持健康的治理习惯  
+> **核心主题**：私有 Marketplace 分发机制、四种安装级别（Available/Default/Required/Hidden）、三条分发路径、共享插件健康维护四习惯  
 > **课程时长**：约 8 分钟（第 13/14 课 · "Sharing and safety in Claude Cowork" 模块第 3 课）
 
 ---
