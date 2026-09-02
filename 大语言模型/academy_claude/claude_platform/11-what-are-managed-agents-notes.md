@@ -1,8 +1,8 @@
 # Claude Platform 101: 《What are managed agents?》托管 Agent：把循环甩给 Anthropic
 
-> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/claude-platform-101/what-are-managed-agents`)\
-> **课程定位**：L4 你手写了 Agent 循环，L5 的 Tool Runner 砍掉样板——**Managed Agents 走到光谱尽头：把整个 Agent 托管到 Anthropic 基础设施上运行**；你定义 Agent（工具/人设/能力），配置沙箱环境，从自己的应用发起点火，Claude 在隔离容器里干活（完整文件系统 + bash + 网搜）\
-> **核心主题**：托管循环、三大示例（看板自动化 / 记忆型研究 / 多 Agent 应急）、八大构建块\
+> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/claude-platform-101/what-are-managed-agents`)  
+> **课程定位**：L4 你手写了 Agent 循环，L5 的 Tool Runner 砍掉样板——**Managed Agents 走到光谱尽头：把整个 Agent 托管到 Anthropic 基础设施上运行**；你定义 Agent（工具/人设/能力），配置沙箱环境，从自己的应用发起点火，Claude 在隔离容器里干活（完整文件系统 + bash + 网搜）  
+> **核心主题**：托管循环、三大示例（看板自动化 / 记忆型研究 / 多 Agent 应急）、八大构建块  
 > **课程时长**：约 7 分钟（第 11/13 课）
 
 ***
@@ -144,7 +144,7 @@ flowchart TD
 | **Outcomes**                 | Rubric + Grader 定义并检查"完成" | Lighthouse > 90        |
 | **Multi-agent coordination** | 协调者委派专家                   | 应急响应三人组                |
 
-> 🎯 **本课金句**：**You define what done looks like. Claude works until it gets there.**\
+> 🎯 **本课金句**：**You define what done looks like. Claude works until it gets there.**  
 > （你定义"完成"长什么样，Claude 一直干到达标为止。）
 
 ***

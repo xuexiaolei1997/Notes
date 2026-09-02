@@ -179,7 +179,7 @@ in this plugin so the format and tone match these.
 
 ## 7. 自建插件：从小做起
 
-当团队的工作流**不存在现成插件**时，可以与 Cowork 协作自建：它会打包工作流所需的 Skills、纳入依赖的 Connectors，并封装成便于安装到 Cowork 实例的 Plugin。
+当团队的工作流**不存在现成插件**时，可以与 Cowork 协作自建：它会打包工作流所需的 Skills，纳入其依赖的 Connectors，并封装成可直接安装到 Cowork 实例的 Plugin。
 
 ### 渐进式构建路径
 

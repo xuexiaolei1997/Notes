@@ -1,8 +1,8 @@
 # AI Fluency: Framework & Foundations: 《A closer look at Delegation》委派深潜
 
-> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/ai-fluency-framework-foundations/a-closer-look-at-delegation`)\
-> **课程定位**：4D 深潜第一站——Delegation（委派）正式展开：决定什么自己做、什么与 AI 协作、什么放手让 AI 独立干；**目标不是自动化一切，而是为每个任务构建最优人机组合**\
-> **核心主题**：Delegation 三组件（Problem Awareness / Platform Awareness / Task Delegation）、领域专长 × AI 认知的双重要求\
+> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/ai-fluency-framework-foundations/a-closer-look-at-delegation`)  
+> **课程定位**：4D 深潜第一站——Delegation（委派）正式展开：决定什么自己做、什么与 AI 协作、什么放手让 AI 独立干；**目标不是自动化一切，而是为每个任务构建最优人机组合**  
+> **核心主题**：Delegation 三组件（Problem Awareness / Platform Awareness / Task Delegation）、领域专长 × AI 认知的双重要求  
 > **课程时长**：20 分钟（第 6/14 课，含练习）
 
 ***

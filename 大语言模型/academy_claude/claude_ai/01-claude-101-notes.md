@@ -93,7 +93,7 @@ flowchart TD
 
 ## 6. 高效 Prompting 实战法则 (Cheatsheet)
 
-### 黄金结构结构：
+### 黄金结构：
 ```markdown
 1. 【Role / Persona】你是资深的...（设定角色视角）
 2. 【Context】背景信息：当前业务现状、业务目标是...

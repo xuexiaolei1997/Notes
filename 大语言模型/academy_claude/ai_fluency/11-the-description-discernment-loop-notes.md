@@ -56,7 +56,7 @@ flowchart TD
 1. **Describe**——用 3P 清晰表达需求
 2. **Discern**——用 3D 逐维验收
 3. **Refine**——反馈有效/无效处，调整描述，迭代到达标
-4. **Integrate**——注入你独有的视角、创造力、领域知识；**决定保留/修改/丢弃的最终决定权在你**；**对最终产出负责**
+4. **Integrate**——注入你独有的视角、创造力、领域知识；**保留/修改/丢弃的最终决定权在你**；**对最终产出负责**
 
 > 🎯 第 ④ 步是全循环的灵魂：官方明说目标是"exceed what either could achieve alone"（超越任一方单独成果）——而 Integrate 正是"人机最佳组合"落地的时刻。这与 Cowork 黄金法则 **Claude can prepare; you ship** 一脉相承。
 
@@ -76,7 +76,7 @@ flowchart TD
 #### 1. 开工前（项目级 3P 章程）
 Product：每任务要什么产出（格式/风格/长度）
 Process：每任务怎么着手（方法/框架/步骤）
-Performance：全程协作姿态（简洁 or 详尽/挑战 or 支持）
+Performance：全程协作姿态（简洁还是详尽/挑战还是支持）
 
 #### 2. 每任务四步
 ① Describe：3P 说清需求

@@ -69,7 +69,7 @@ graph LR
 
 ### Compaction（自动压缩）机制
 
-> Claude Code **compacts** your conversation — automatically determining **what it can remove or summarize** to bring the context window back down to a usable size.
+> Claude Code **compacts** your conversation — automatically determining **what it can remove or summarize** to bring the context window back down to a usable size.（Claude Code 会**压缩**你的对话——自动判断**哪些内容可以移除或摘要化**，把上下文窗口压回可用大小。）
 
 - 触发条件：上下文达到限额
 - 动作：自动判断**哪些内容可以移除、哪些可以摘要化**

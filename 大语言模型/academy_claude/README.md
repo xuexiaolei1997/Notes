@@ -1,6 +1,6 @@
 # Claude Academy 学习笔记全集
 
-> **官方平台**：Anthropic Claude Academy ([academy.claude.com](https://academy.claude.com))\
+> **官方平台**：Anthropic Claude Academy ([academy.claude.com](https://academy.claude.com))  
 > **学习目标**：系统化掌握 Claude 生态工具链、AI 协作思维与工程落地能力。
 
 ***
@@ -72,7 +72,7 @@ academy_claude/
 
 ### 4. 🛠️ Claude Platform（Platform 101 · 13 课 + 1 测验 · 约 1.5 小时 · 🎉 已全部完成）
 
-> 📋 **板块规划**（共三门课，按序学习）：Platform 101（13 课 · 1.5h）→ Intro to MCP（10 课 · 1h）→ Building with the Claude API（67 课 · 9h）\
+> 📋 **板块规划**（共三门课，按序学习）：Platform 101（13 课 · 1.5h）→ Intro to MCP（10 课 · 1h）→ Building with the Claude API（67 课 · 9h）  
 > 💻 **前置准备**：Claude Console 账号 + API Key（platform.claude.com）+ 少量预充值；课程示例为 TypeScript SDK，平台另有 Python SDK
 
 | 笔记    | 说明                                                                                                                                | 模块                          | 状态 |
@@ -127,6 +127,6 @@ academy_claude/
 
 ## 🏁 Academy 学习计划完结总览
 
-> 🎉 **六大板块全部通关**：Claude.ai（4 课）→ Claude Cowork（14 课 + 测验·满分）→ Claude Code（12 课 + 测验·通过）→ Claude Platform（13 课 + 测验·80%）→ AI Fluency（14 课 + 测验·满分）→ AI Capabilities and Limitations（13 课 + 测验·9/10）——**共 70 课 + 5 次结课测验**。
+> 🎉 **六大板块全部通关**：Claude.ai（4 课）→ Claude Cowork（14 课 + 测验·满分）→ Claude Code（12 课 + 测验·通过）→ Claude Platform（13 课 + 测验·80%）→ AI Fluency（14 课 + 测验·满分）→ AI Capabilities and Limitations（13 课 + 测验·9/10）——**共 70 课 + 5 次结课测验**。  
 >
 > **主线一以贯之**：从"会聊天"（Claude.ai）→ "会委派"（Cowork）→ "会编程协作"（Code）→ "会造工具"（Platform）→ "会做人机协作的理论闭环"（AI Fluency 4D 框架）→ "懂机器的属性边界"（AI Capabilities 四属性光谱）。

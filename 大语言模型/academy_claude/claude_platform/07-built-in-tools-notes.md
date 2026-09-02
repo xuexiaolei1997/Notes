@@ -100,7 +100,7 @@ for block in code_response.content:
 
 ### 运行结果
 
-- **Web Search**：打印 Claude 的工具调用 → 一句话答案，**搜索引用已折入**
+- **Web Search**：打印 Claude 的工具调用 → 一句话答案，**搜索引用一并返回**
 - **Code Execution**：能看到 **Claude 实际写的 Python**、沙箱运行 stdout、最终文本答案
 
 > 没搭搜索爬虫、没跑 Python 沙箱——声明两个工具，全都白拿。
@@ -122,7 +122,7 @@ for block in code_response.content:
 
 ## 4. 生产价值与提醒
 
-- **生产捷径**：本来要花数周的功能，现在一步到位——Web Search 可驱动"事实核查端点"，把草稿里的每条数字和监管声明对实时网络验证
+- **生产捷径**：本来要花数周的功能，现在一步到位——Web Search 可驱动"事实核查端点"，把草稿里的每条数字和监管声明逐条对照实时网络验证
 - ⚠️ **提醒**：**互联网上验证过 ≠ 真**——永远复核 Claude 的工作
 
 ```mermaid

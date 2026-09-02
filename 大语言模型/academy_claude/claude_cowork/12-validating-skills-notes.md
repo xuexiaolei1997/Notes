@@ -63,7 +63,7 @@ flowchart LR
 
 ## 3. 评估系统如何运作：skill-creator 内置机制
 
-**skill-creator** 是 Claude 内置的 Skill 构建助手，**Evals 是构建流程的内置环节**（walks you through evals as part of the process），无需单独搭建。
+**skill-creator** 是 Claude 内置的 Skill 构建助手，**Evals 是构建流程中的内置环节**（walks you through evals as part of the process），无需单独搭建。
 
 ### 核心机制：有/无 Skill 对照实验
 

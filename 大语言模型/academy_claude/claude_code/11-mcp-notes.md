@@ -1,8 +1,8 @@
 # Claude Code 101: 《MCP》Model Context Protocol 外部工具接入
 
-> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/claude-code-101/mcp`)\
-> **课程定位**：让 Claude Code 连接外部工具与数据源的开放标准——大量上下文活在代码库之外（数据库、生产力应用、公开仓库），MCP 补上这座桥\
-> **核心主题**：MCP 与 tools 概念、HTTP/Stdio 两类服务器、三种作用域、上下文成本与三种替代方案\
+> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/claude-code-101/mcp`)  
+> **课程定位**：让 Claude Code 连接外部工具与数据源的开放标准——大量上下文活在代码库之外（数据库、生产力应用、公开仓库），MCP 补上这座桥  
+> **核心主题**：MCP 与 tools 概念、HTTP/Stdio 两类服务器、三种作用域、上下文成本与三种替代方案  
 > **课程时长**：约 6 分钟（第 11/12 课）
 
 ***

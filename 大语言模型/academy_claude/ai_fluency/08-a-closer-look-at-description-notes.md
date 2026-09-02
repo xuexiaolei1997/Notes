@@ -46,7 +46,7 @@ flowchart TD
 
 > AI can't read your mind. **AI systems are interactive partners, not databases or vending machines.**
 
-- 结果质量的差距，往往就是**你把自己的需求、偏好的方法、期望的互动方式说得多清楚**
+- 结果质量的差距，往往就在于**你把自己的需求、偏好的方法、期望的互动方式说得多清楚**
 - **开头把话说清，省下的时间和返工远大于投入**（clear communication up front saves time and leads to better results）
 
 ---
@@ -78,7 +78,7 @@ flowchart TD
 #### 1. 3P 框架
 Product：要什么（内容/格式/受众/风格）
 Process：怎么做（方法/路径/约束）
-Performance：怎么相处（简洁 or 详尽 / 挑战 or 支持）
+Performance：怎么相处（简洁还是详尽 / 挑战还是支持）
 
 #### 2. 心法
 AI 读不懂你的心——它是对话伙伴

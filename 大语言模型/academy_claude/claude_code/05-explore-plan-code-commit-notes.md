@@ -1,8 +1,8 @@
 # Claude Code 101: 《The explore → plan → code → commit workflow》核心工作流四部曲
 
-> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/claude-code-101/the-explore-plan-code-commit-workflow`)\
-> **课程定位**：全课程最核心的一课——Explore → Plan → Code → Commit 四步工作流；大多数人跳过前两步直接要代码，代价是后期更多返工纠偏\
-> **核心主题**：Plan Mode 承接前两步、编码阶段三个提效技巧、CLAUDE.md 记忆沉淀、Subagent 代码审查\
+> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/claude-code-101/the-explore-plan-code-commit-workflow`)  
+> **课程定位**：全课程最核心的一课——Explore → Plan → Code → Commit 四步工作流；大多数人跳过前两步直接要代码，代价是后期更多返工纠偏  
+> **核心主题**：Plan Mode 承接前两步、编码阶段三个提效技巧、CLAUDE.md 记忆沉淀、Subagent 代码审查  
 > **课程时长**：约 8 分钟（第 5/12 课）
 
 ***
@@ -20,7 +20,7 @@
 
 ## 1. 为什么这个工作流是全课最重要
 
-> **If you take one thing away from this course, let it be this workflow: Explore, Plan, Code, and Commit.**
+> **If you take one thing away from this course, let it be this workflow: Explore, Plan, Code, and Commit.**  
 > （如果这门课你只带走一样东西，那就是这个工作流。）
 
 ```mermaid
@@ -52,7 +52,7 @@ flowchart LR
 
 * 官方示例 Prompt（WebP 图片压缩管线）：
 
-> I need to add WebP conversion to our image upload pipeline. **Figure out where in the pipeline it should happen, whether we need new dependencies, and how to approach it**.
+> I need to add WebP conversion to our image upload pipeline. **Figure out where in the pipeline it should happen, whether we need new dependencies, and how to approach it**.  
 > （找出该插入管线的哪个位置、是否需要新依赖、如何实现。）
 
 ### Plan 阶段流程
@@ -82,7 +82,7 @@ flowchart TD
 
 计划认可后选 **Approve**，Claude 按你的权限模式推进（逐步问 / 文件放行 / Auto 全自动）。
 
-> Claude will **do its best to troubleshoot before considering the plan "finished"** —— Claude 会在宣布"完成"前尽力排障，但你偶尔仍需介入。Plan Mode 的红利在这里兑现：**执行结束后你保有完整的推导上下文**，能更好地指导 Claude 下一步决策。
+> Claude will **do its best to troubleshoot before considering the plan "finished"** —— Claude 会在宣布"完成"前尽力排障，但你偶尔仍需介入。Plan Mode 的红利在这里兑现：**执行结束后你仍保有完整的推导上下文**，能更好地指导 Claude 下一步决策。
 
 ### 编码阶段三个提效技巧
 

@@ -1,8 +1,8 @@
 # AI Fluency: Framework & Foundations: 《Capabilities & limitations》能力与局限
 
-> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/ai-fluency-framework-foundations/capabilities-limitations`)\
-> **课程定位**：技术深潜第二课（收官）——生成式 AI 当前**能做什么、不能做什么**的完整清单；学完这课，Delegation 的分工决策就有了事实依据，不再是拍脑袋\
-> **核心主题**：四大能力、四大局限、人机互补的最优组合\
+> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/ai-fluency-framework-foundations/capabilities-limitations`)  
+> **课程定位**：技术深潜第二课（收官）——生成式 AI 当前**能做什么、不能做什么**的完整清单；学完这课，Delegation 的分工决策就有了事实依据，不再是拍脑袋  
+> **核心主题**：四大能力、四大局限、人机互补的最优组合  
 > **课程时长**：9 分钟（第 5/14 课）
 
 ***

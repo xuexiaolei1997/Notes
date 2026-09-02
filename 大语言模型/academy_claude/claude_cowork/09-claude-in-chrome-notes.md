@@ -18,7 +18,7 @@
 
 ## 1. 定位：没有 Connector 的工具怎么办
 
-Connector 机制再丰富，也覆盖不了所有工具——尤其是企业内部系统。**Claude in Chrome 就是这个缺口的桥梁**：
+Connector 机制再丰富，也覆盖不了所有工具——尤其是企业内部系统。**Claude in Chrome 就是补上这块缺口的桥**：
 
 > **Claude in Chrome is the bridge for tools that don't have a connector.** For anything that lives in a browser, Claude can read and act on those pages.
 

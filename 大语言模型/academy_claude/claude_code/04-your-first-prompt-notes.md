@@ -103,7 +103,7 @@ flowchart TD
 | :--- | :--- | :--- |
 | **范围** | across the entire app | 全局生效，不是局部 |
 | **位置与交互** | toggle switch on the header | 明确组件位置和形态 |
-| **约束与依据** | find a good contrast color based on my existing light theme | 基于现有浅色主题推对比色——给了推导依据而非凭空发挥 |
+| **约束与依据** | find a good contrast color based on my existing light theme | 基于现有浅色主题找对比色——给了依据而非凭空发挥 |
 
 > 💡 结束时，你能**确切看到 Claude 做了什么、以及它如何得出结论**（exactly what Claude did and how it reached its conclusions）——这就是 Agentic 过程的透明性。
 

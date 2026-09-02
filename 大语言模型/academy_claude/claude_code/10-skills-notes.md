@@ -84,12 +84,12 @@ flowchart TD
 
 ## 4. 三方对比：Skills vs CLAUDE.md vs Slash 命令
 
-Claude Code 有多种行为定制方式，Skills 的独特性在于 **automatic + task-specific（自动 + 任务特定）**：
+Claude Code 有多种定制行为的方式，Skills 的独特性在于 **automatic + task-specific（自动 + 任务特定）**：
 
 | 维度 | **Skills** | **CLAUDE.md** | **Slash 命令** |
 | :--- | :--- | :--- | :--- |
 | **加载时机** | **按需加载**——匹配请求才激活 | **每场对话都加载** | **你手动输入才触发** |
-| **上下文开销** | 平时**只加载 name + description**，不占满窗口 | 常驻上下文 | —— |
+| **上下文开销** | 平时**只加载 name + description**，几乎不占上下文 | 常驻上下文 | —— |
 | **触发方式** | Claude 识别场景**自动应用** | 无需触发，始终在场 | 必须记得敲命令 |
 | **适合装** | 特定任务的专业知识 | 全局恒定的约定 | 手动意图明确的操作 |
 
@@ -101,7 +101,7 @@ Claude Code 有多种行为定制方式，Skills 的独特性在于 **automatic 
 
 ### 判断一个 Skill 该不该写的标准
 
-> **If you find yourself explaining the same thing to Claude repeatedly, well, that's a skill waiting to be written.**
+> **If you find yourself explaining the same thing to Claude repeatedly, well, that's a skill waiting to be written.**  
 > （如果你发现自己在反复向 Claude 解释同一件事——那就是一个等着被写出来的 Skill。）
 
 最佳适用：团队代码审查标准、你偏好的 commit 格式、组织品牌规范。

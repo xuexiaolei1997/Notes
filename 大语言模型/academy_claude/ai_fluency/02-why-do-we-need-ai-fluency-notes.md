@@ -1,8 +1,8 @@
 # AI Fluency: Framework & Foundations: 《Why do we need AI Fluency?》为什么需要 AI 流利度
 
-> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/ai-fluency-framework-foundations/why-do-we-need-ai-fluency`)\
-> **课程定位**：回答"Fluent（流利）到底指什么、为什么此刻重要"——AI Fluency 不只是会用工具，而是**实用技能 + 知识 + 洞察 + 价值观**四位一体；并引出人机协作的三种层级（3A 模型）\
-> **核心主题**：Fluency 的完整构成、Automation / Augmentation / Agency 三分法\
+> **课程出处**：Anthropic 官方 Claude Academy (`academy.claude.com/courses/ai-fluency-framework-foundations/why-do-we-need-ai-fluency`)  
+> **课程定位**：回答"Fluent（流利）到底指什么、为什么此刻重要"——AI Fluency 不只是会用工具，而是**实用技能 + 知识 + 洞察 + 价值观**四位一体；并引出人机协作的三种层级（3A 模型）  
+> **核心主题**：Fluency 的完整构成、Automation / Augmentation / Agency 三分法  
 > **课程时长**：7 分钟（第 2/14 课）
 
 ***
@@ -38,7 +38,7 @@
 | 层级                   | 定义                                        | 人扮演的角色          | 你学过的对应                                        |
 | :------------------- | :---------------------------------------- | :-------------- | :-------------------------------------------- |
 | **Automation（自动化）**  | AI 按**你的指令**完成**特定任务**                    | 指挥者：下指令、验结果     | Cowork 单次任务、Claude Code 单条 Prompt             |
-| **Augmentation（增强）** | 你和 AI 作为**创意思考与任务执行的伙伴**协作                | 合作者：来回碰撞、共同打磨   | Task Loop 四阶段、explore→plan→code→commit        |
+| **Augmentation（增强）** | 你和 AI 作为**创意与执行上的伙伴**协作                | 合作者：来回碰撞、共同打磨   | Task Loop 四阶段、explore→plan→code→commit        |
 | **Agency（能动性）**      | 你**配置** AI **独立**替你工作——设定它的知识与行为模式，而非逐个派活 | 配置者：建环境、定边界、立规矩 | Scheduled Tasks、Skills、Plugins、Managed Agents |
 
 ```mermaid

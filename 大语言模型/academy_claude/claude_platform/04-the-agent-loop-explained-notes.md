@@ -20,7 +20,7 @@
 
 > An **agent** is an autonomous version of Claude, running **both sides of the messaging loop** without a human in the middle.
 
-- Agent = Claude 的**自主版本**：消息循环的**两侧都由它跑**，中间没有人类
+- Agent = Claude 的**自主版本**：消息循环的**两侧都由它扮演**，中间没有人类
 - 收到任务 → 挑工具 → 在循环里执行代码 → **直到 Claude 自己判定任务完成**
 
 > 💡 呼应 Claude Code L2 的 Agentic Loop 五步——产品端的循环（Cowork / Claude Code）和 API 端的循环（本课）是**同一个思想的两层实现**。
