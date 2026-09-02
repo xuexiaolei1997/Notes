@@ -45,7 +45,7 @@ Notes/
 
 | 模块/笔记 | 说明 | 领域/板块 |
 | :--- | :--- | :--- |
-| [Claude Academy 学习全集导航](大语言模型/academy_claude/README.md) | Anthropic 官方体系化课程笔记导航（5 大板块 57 课 + 4 测验 🎉 全部完成） | 全景导航 |
+| [Claude Academy 学习全集导航](大语言模型/academy_claude/README.md) | Anthropic 官方体系化课程笔记导航（6 大板块 70 课 + 5 测验 🎉 全部完成） | 全景导航 |
 | ↳ [01. Claude 101](大语言模型/academy_claude/claude_ai/01-claude-101-notes.md) | Claude 基础、核心组件与 4D 框架入门 | Claude.ai |
 | ↳ [02. Getting Started with Claude.ai](大语言模型/academy_claude/claude_ai/02-getting-started-with-claude-ai-notes.md) | Claude.ai 交互与效率指南 | Claude.ai |
 | ↳ [03. Intro to Projects](大语言模型/academy_claude/claude_ai/03-intro-to-projects-notes.md) | Claude Projects 项目管理与知识库应用 | Claude.ai |
@@ -107,6 +107,7 @@ Notes/
 | ↳ [13. Conclusion](大语言模型/academy_claude/ai_fluency/13-conclusion-notes.md) | 4D 全景回顾（3A×4E）、三论断（靠练习/不魔法/为演进设计）、人机互相放大优势 | AI Fluency |
 | ↳ 🏆 结课测验 | Course quiz 全部正确通过 | AI Fluency |
 | ↳ [14. Additional activities](大语言模型/academy_claude/ai_fluency/14-additional-activities-notes.md) | 个人 Fluency 计划、Prompt 模式库、游戏夜（Swap Riddles/合作填字/词语联想） | AI Fluency |
+| ↳ [AI Capabilities and Limitations 全课程总结](大语言模型/academy_claude/ai_capabilities/ai-capabilities-and-limitations-notes.md) | 四大机器属性光谱（NTP/Knowledge/Working Memory/Steerability）、训练指纹、属性碰撞诊断、校准的信任 · 测验 9/10 | AI Capabilities |
 
 ---
 

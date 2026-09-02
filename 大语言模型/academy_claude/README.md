@@ -13,7 +13,8 @@ academy_claude/
 ├── claude_cowork/      # Claude Cowork 桌面端深度协作成品交付
 ├── claude_code/        # Claude Code 终端/IDE Agentic 编程与研发工作流
 ├── claude_platform/    # Claude API、Console 控制台与 MCP 协议开发
-└── ai_fluency/         # 4D AI 流畅度框架与高阶人机协作思维
+├── ai_fluency/         # 4D AI 流畅度框架与高阶人机协作思维
+└── ai_capabilities/    # AI 能力与限制：四大机器属性与校准的信任
 ```
 
 ***
@@ -113,11 +114,19 @@ academy_claude/
 | 🏆 结课测验 | Course quiz 全部正确通过 | ✅ 满分通过 |
 | [14. Additional activities](ai_fluency/14-additional-activities-notes.md) | 个人 Fluency 计划、Prompt 模式库、游戏夜（Swap Riddles/合作填字/词语联想） | ✅ 选做完成 |
 
+### 6. 🔬 AI Capabilities and Limitations（13 课 · 约 3.5 小时 · 🎉 已全部完成）
+
+> 📚 **课程定位**：《AI Fluency》的姊妹篇——4D 教"人"的胜任力，这门课教"机器"的属性。围绕四大属性光谱（Next Token Prediction / Knowledge / Working Memory / Steerability）+ 训练指纹 + 属性碰撞诊断 + 校准的信任。
+
+| 笔记 | 说明 | 状态 |
+| :--- | :--- | :--- |
+| [全课程总结笔记](ai_capabilities/ai-capabilities-and-limitations-notes.md) | 四属性光谱、训练两阶段与四大指纹、U 型曲线、属性碰撞诊断、校准的信任（含测验错题解析） | ✅ 已完成 |
+| 🏆 结课测验 | Course quiz 通过 | ✅ 9/10 |
 
 ---
 
 ## 🏁 Academy 学习计划完结总览
 
-> 🎉 **五大板块全部通关**：Claude.ai（4 课）→ Claude Cowork（14 课 + 测验·满分）→ Claude Code（12 课 + 测验·通过）→ Claude Platform（13 课 + 测验·80%）→ AI Fluency（14 课 + 测验·满分）——**共 57 课 + 4 次结课测验**。
+> 🎉 **六大板块全部通关**：Claude.ai（4 课）→ Claude Cowork（14 课 + 测验·满分）→ Claude Code（12 课 + 测验·通过）→ Claude Platform（13 课 + 测验·80%）→ AI Fluency（14 课 + 测验·满分）→ AI Capabilities and Limitations（13 课 + 测验·9/10）——**共 70 课 + 5 次结课测验**。
 >
-> **主线一以贯之**：从"会聊天"（Claude.ai）→ "会委派"（Cowork）→ "会编程协作"（Code）→ "会造工具"（Platform）→ "会做人机协作的理论闭环"（AI Fluency 4D 框架）。
+> **主线一以贯之**：从"会聊天"（Claude.ai）→ "会委派"（Cowork）→ "会编程协作"（Code）→ "会造工具"（Platform）→ "会做人机协作的理论闭环"（AI Fluency 4D 框架）→ "懂机器的属性边界"（AI Capabilities 四属性光谱）。
