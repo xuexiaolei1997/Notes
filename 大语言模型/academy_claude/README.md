@@ -91,9 +91,33 @@ academy_claude/
 | [13. Building with Claude Code](claude_platform/13-building-with-claude-code-notes.md) | Claude API 内置 Skill、好 Prompt 三要素、定义-递交-返回形状、审 diff | Building with Claude Code | ✅ 已完成 |
 | 🏆 结课测验 | [Claude Platform 101 quiz](https://academy.claude.com/courses/claude-platform-101/claude-platform-101-quiz) · 13 课 + 测验全部完成 | — | ✅ 已通过 · 80% |
 
-### 5. 🧠 AI Fluency
+### 5. 🧠 AI Fluency: Framework & Foundations（14 课 · 约 3.5 小时 · 🎉 已全部完成）
 
-| 笔记    | 说明                            | 状态    |
-| :---- | :---------------------------- | :---- |
-| *待更新* | 4D Fluency 框架深化、人机分工边界与严谨检验实践 | ⏳ 待学习 |
+> 📚 **课程结构**：Introduction（L1-L2）→ 4D 胜任力逐一展开（Delegation / Description / Discernment / Diligence）→ 收官；配套练习需任一语言模型访问权（Claude 免费版够用）
 
+| 笔记                                                        | 说明                                                              | 状态      |
+| :---------------------------------------------------------- | :---------------------------------------------------------------- | :-------- |
+| [01. Introduction to AI Fluency](ai_fluency/01-introduction-to-ai-fluency-notes.md) | AI Fluency 定义（4E）、4D 胜任力预告、协作而非技术、反思三问 | ✅ 已完成 |
+| [02. Why do we need AI Fluency?](ai_fluency/02-why-do-we-need-ai-fluency-notes.md) | Fluency 四构成（技能/知识/洞察/价值观）、3A 模型（Automation/Augmentation/Agency） | ✅ 已完成 |
+| [03. The 4D Framework](ai_fluency/03-the-4d-framework-notes.md) | 4D 正式定义（Delegation/Description/Discernment/Diligence）、4D×3A 组合、场景练习 | ✅ 已完成 |
+| [04. Generative AI fundamentals](ai_fluency/04-generative-ai-fundamentals-notes.md) | 生成式 vs 分析式、LLM 原理、三大技术支柱、预训练/微调、上下文窗口、涌现能力 | ✅ 已完成 |
+| [05. Capabilities & limitations](ai_fluency/05-capabilities-limitations-notes.md) | 四大能力、四大局限（知识截止/幻觉/上下文/推理）与缓解手段、人机互补 | ✅ 已完成 |
+| [06. A closer look at Delegation](ai_fluency/06-a-closer-look-at-delegation-notes.md) | Delegation 三组件（问题意识/平台意识/任务委派）、领域专长×AI 认知、不是自动化一切 | ✅ 已完成 |
+| [07. Project planning and Delegation](ai_fluency/07-project-planning-and-delegation-notes.md) | 选题三标准、四类选题池、三步规划（选题→愿景→拆解委派）、贯穿课程的实战画布 | ✅ 已完成 |
+| [08. A closer look at Description](ai_fluency/08-a-closer-look-at-description-notes.md) | 3P 描述框架（Product/Process/Performance）、AI 是伙伴不是售货机、Bad Prompt Makeover | ✅ 已完成 |
+| [09. Effective prompting techniques](ai_fluency/09-effective-prompting-techniques-notes.md) | Prompt engineering 定义、六大技术（上下文/示例/约束/步骤/先思考/定角色）、秘密武器 | ✅ 已完成 |
+| [10. A closer look at Discernment](ai_fluency/10-a-closer-look-at-discernment-notes.md) | 3D 辨别框架（Product/Process/Performance 验收）、与 Description 的反馈环、危险信号 | ✅ 已完成 |
+| [11. The Description-Discernment loop](ai_fluency/11-the-description-discernment-loop-notes.md) | 项目级 3P 章程、每任务四步循环（Describe→Discern→Refine→Integrate）、人机超组合 | ✅ 已完成 |
+| [12. A closer look at Diligence](ai_fluency/12-a-closer-look-at-diligence-notes.md) | 三重尽责（Creation/Transparency/Deployment）、Diligence 声明四要素、情境敏感性 | ✅ 已完成 |
+| [13. Conclusion](ai_fluency/13-conclusion-notes.md) | 4D 全景回顾（3A×4E）、三论断（靠练习/不魔法/为演进设计）、人机互相放大优势 | ✅ 已完成 |
+| 🏆 结课测验 | Course quiz 全部正确通过 | ✅ 满分通过 |
+| [14. Additional activities](ai_fluency/14-additional-activities-notes.md) | 个人 Fluency 计划、Prompt 模式库、游戏夜（Swap Riddles/合作填字/词语联想） | ✅ 选做完成 |
+
+
+---
+
+## 🏁 Academy 学习计划完结总览
+
+> 🎉 **五大板块全部通关**：Claude.ai（4 课）→ Claude Cowork（14 课 + 测验·满分）→ Claude Code（12 课 + 测验·通过）→ Claude Platform（13 课 + 测验·80%）→ AI Fluency（14 课 + 测验·满分）——**共 57 课 + 4 次结课测验**。
+>
+> **主线一以贯之**：从"会聊天"（Claude.ai）→ "会委派"（Cowork）→ "会编程协作"（Code）→ "会造工具"（Platform）→ "会做人机协作的理论闭环"（AI Fluency 4D 框架）。
